@@ -43,6 +43,60 @@ $ docker run -d -p 5000:5000 --name firefox-syncserver \
   crazymax/firefox-syncserver:latest
 ```
 
+## Nginx + Let's encrypt
+
+Here is a docker-compose example to use Firefox Sync Server behind a reverse proxy with Nginx + Let's encrypt :
+
+```yml
+version: '3'
+
+services:
+  proxy:
+    image: jwilder/nginx-proxy:alpine
+    labels:
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./proxy/conf.d:/etc/nginx/conf.d:rw
+      - ./proxy/vhost.d:/etc/nginx/vhost.d:rw
+      - ./proxy/html:/usr/share/nginx/html:rw
+      - ./proxy/certs:/etc/nginx/certs:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    restart: always
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    depends_on:
+      - proxy
+    volumes:
+      - ./proxy/certs:/etc/nginx/certs:rw
+      - ./proxy/vhost.d:/etc/nginx/vhost.d:rw
+      - ./proxy/html:/usr/share/nginx/html:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: always
+
+  firefox-syncserver:
+    image: crazymax/firefox-syncserver:latest
+    container_name: firefox-syncserver
+    volumes:
+      - ./data:/data
+    environment:
+      - VIRTUAL_HOST=syncserver.example.com
+      - VIRTUAL_PORT=5000
+      - LETSENCRYPT_HOST=syncserver.example.com
+      - LETSENCRYPT_EMAIL=webmaster@example.com
+      - FF_SYNCSERVER_PUBLIC_URL=https://syncserver.example.com
+      - FF_SYNCSERVER_SECRET=5up3rS3kr1t
+      - FF_SYNCSERVER_ALLOW_NEW_USERS=true
+      - FF_SYNCSERVER_FORCE_WSGI_ENVIRON=true
+      - TZ=Europe/Paris
+    restart: always
+```
+
 ## How can i help ?
 
 We welcome all kinds of contributions :raised_hands:!<br />
