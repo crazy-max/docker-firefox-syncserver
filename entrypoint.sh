@@ -5,8 +5,8 @@ ln -snf /usr/share/zoneinfo/${TZ:-"UTC"} /etc/localtime
 echo ${TZ:-"UTC"} > /etc/timezone
 
 # Config
-if [ -z "$FF_SYNCSERVER_PUBLIC_URL" -o -z "$FF_SYNCSERVER_SECRET" ] ; then
-  echo "FF_SYNCSERVER_PUBLIC_URL and FF_SYNCSERVER_SECRET must be defined"
+if [ -z "$FF_SYNCSERVER_SECRET" ] ; then
+  echo "FF_SYNCSERVER_SECRET must be defined"
   exit 1
 fi
 

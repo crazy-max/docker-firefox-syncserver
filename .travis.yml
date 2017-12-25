@@ -35,7 +35,7 @@ install:
     -t $DOCKER_USERNAME/$DOCKER_REPONAME .
 
 before_script:
-  - docker run -d --name $DOCKER_REPONAME $DOCKER_USERNAME/$DOCKER_REPONAME
+  - docker run -d -e FF_SYNCSERVER_SECRET=5up3rS3kr1t --name $DOCKER_REPONAME $DOCKER_USERNAME/$DOCKER_REPONAME
   - sleep 5
   - docker logs $DOCKER_REPONAME
 
