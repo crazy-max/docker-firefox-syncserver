@@ -1,0 +1,58 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  global:
+    - VERSION=1.6.0
+    - GITHUB_REPO=crazy-max/docker-firefox-syncserver
+    - DOCKER_USERNAME=crazymax
+    - DOCKER_REPONAME=dokuwiki
+    - DOCKER_VERSION=17.10.0~ce-0~ubuntu
+    - COMPOSE_VERSION=1.18.0
+    - secure: hUyblTn4mr/Ru6ye3BySAglSemcF5kpyZL+ASlykaT2AifOpUvl1pmVp0ll2VGYqUeImRFzCVbgQhBU4TdOgA4mJz/jwX5dA4n+TibNRgpRFd4xv3dTK6QywdzD+UfYYZbiKAGsFvHcXwUgm6X8e/01hJpURRBE+j4BqlDMG9BWxEKNyo0t5qREEI0Vg9gUcaf5gy4bKLAq5jijZd2FM9Br+RTxtM1qGNaZkqsncqcHsXF6n5TemmkD1w3YOTEuKI+Snrg2Cgk1Jo0fO3xooA9Y6cgKKmtlDjRWETPODgGo9+lpTaDVrGE39QucJsWAYIZzGnRQTCqhAbsIeta4hUhY92ARuv3BXmaAffPUUmrF9cuE0ZgqN1JxAPMCsmwkt6nNlo7yr5+6dC/56E3IJhpMLN7VybE8cPf3cxlsue09lEaNKR/n/mBsQxRe6sDk0UPTO0UTt4LlwguS5Q/fsDNMuu7zKvOnxNzhM+XkqKzrHgqRMW8nJlzDwM56al9+wnQeMizODH+mmkM8DHAEWGadY8RzRFFk0gXlKPajRSMj0A3+g2F/V/kVpSJz/5ApNCvirG3tWsWqKiTEf7cj9UFdTJa/1MbyAi6nB14GoeyCWXlo10VmekmNtAqOc55OyxFWTmpno5ps6NIqhyhXTc/oyqYtY9k2cwetFFLPphpw= # DOCKER_PASSWORD
+    - secure: 1A2zC9qiN5I56OlGhyCfNoqOPf8tRPqUa/Py0t9dO6B7ZIS4izTO97B8c25sql8beUqgGyCtC8zaMBDmEzOoQh8Y+KA/HLGfNyMDtnHYPZczcJ6t7+7/vWzuEhmeNNYz9U4RNKpNbPK6/XXwEIJdmwhToKkNIOo55Wpj6rjAzI9KaaH26rYu92bh+Q3oVqPQDpB3ByCTyZDbj06Fc54PT3ydm8Mi+/ORz/PxfWO6I6EUzDr3cEa8d1fyAsXBvDXTxAvN5WfH85bGxtB3cPa+cc5FRnlO5yAiLj5uqqpqpo6BxNWq8yh5U8jKCT//GrnYYwCvynvvLNo7OEuFi0isnACRIQo6zyLvjvQQGvEtDaI1Yz0uucw+sg+clvbGJoBwBrdbRDyOQoc+hO3JXQ3FC4qas1cy0nRyGqjhVw2UdOuMSpsH4eq+HKnEES4XsOHNjI3Jqb0FuIU6aLf+wrx6vQHv/98aPP0EArGT90GniUMaTplE7j1JJXEpeDv+/yop84tPGodsbBVST60BxV+dMFTE3D3aR3bs/54m9dXRNdt8DEQT5IdDwRxVYj1sDny4rXq8b8Ax5aWoYf6Itf9Oxxw6Sj2aeZU3U/5XAZYyY2wvdfgrdtWpse+rW2kKE93/ne527CtXc5tP9w5+Trqrl8Fc0DqkpT8IMyDlJBbsd04= # GITHUB_TOKEN
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-cache madison docker-ce
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce=${DOCKER_VERSION}
+  - docker --version
+  - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker-compose --version
+  - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+  - export DOCKER_TAG=$(if [ "$BRANCH" == "master" ]; then echo "latest"; else echo $BRANCH; fi)
+  - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH, DOCKER_TAG=$DOCKER_TAG"
+
+install:
+  - |
+    docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+    --build-arg VCS_REF=${TRAVIS_COMMIT::8} \
+    --build-arg VERSION=${VERSION} \
+    -t $DOCKER_USERNAME/$DOCKER_REPONAME .
+
+before_script:
+  - docker run -d --name $DOCKER_REPONAME $DOCKER_USERNAME/$DOCKER_REPONAME
+  - sleep 5
+  - docker logs $DOCKER_REPONAME
+
+script:
+  - docker ps | grep $DOCKER_REPONAME
+
+after_success:
+  - test $TRAVIS_PULL_REQUEST = false
+    && echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+    && docker tag $DOCKER_USERNAME/$DOCKER_REPONAME $DOCKER_USERNAME/$DOCKER_REPONAME:$DOCKER_TAG
+    && docker tag $DOCKER_USERNAME/$DOCKER_REPONAME $DOCKER_USERNAME/$DOCKER_REPONAME:$VERSION
+    && docker push $DOCKER_USERNAME/$DOCKER_REPONAME
+    && git config --global user.email "builds@travis-ci.com"
+    && git config --global user.name "Travis CI"
+    && git tag $VERSION -a -m "Generated tag from TravisCI for $VERSION"
+    && git push --quiet https://$GITHUB_TOKEN@github.com/$GITHUB_REPO $VERSION > /dev/null 2>&1
+
+branches:
+  except:
+    - /^[0-9]/
