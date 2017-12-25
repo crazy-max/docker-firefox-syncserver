@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  firefox-syncserver:
+    image: crazymax/firefox-syncserver:latest
+    container_name: firefox-syncserver
+    ports:
+      - 5000:5000
+    volumes:
+      - ./data:/data
+    environment:
+      - FF_SYNCSERVER_PUBLIC_URL=http://localhost:5000
+      - FF_SYNCSERVER_SECRET=5up3rS3kr1t
+      - FF_SYNCSERVER_ALLOW_NEW_USERS=true
+      - FF_SYNCSERVER_FORCE_WSGI_ENVIRON=false
+      - TZ=Europe/Paris
+    restart: always

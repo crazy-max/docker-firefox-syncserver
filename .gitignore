@@ -1,0 +1,7 @@
+# Jetbrains
+/*.ipr
+/*.iml
+/*.iws
+
+# App
+/.dev
