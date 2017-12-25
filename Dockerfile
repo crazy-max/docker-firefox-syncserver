@@ -6,7 +6,7 @@ ARG VCS_REF
 ARG VERSION
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
-  org.label-schema.name="dokuwiki" \
+  org.label-schema.name="firefox-syncserver" \
   org.label-schema.description="Firefox Sync Server" \
   org.label-schema.version=$VERSION \
   org.label-schema.url="https://github.com/crazy-max/docker-firefox-syncserver" \

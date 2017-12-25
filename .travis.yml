@@ -8,7 +8,7 @@ env:
     - VERSION=1.6.0
     - GITHUB_REPO=crazy-max/docker-firefox-syncserver
     - DOCKER_USERNAME=crazymax
-    - DOCKER_REPONAME=dokuwiki
+    - DOCKER_REPONAME=firefox-syncserver
     - DOCKER_VERSION=17.10.0~ce-0~ubuntu
     - COMPOSE_VERSION=1.18.0
     - secure: hUyblTn4mr/Ru6ye3BySAglSemcF5kpyZL+ASlykaT2AifOpUvl1pmVp0ll2VGYqUeImRFzCVbgQhBU4TdOgA4mJz/jwX5dA4n+TibNRgpRFd4xv3dTK6QywdzD+UfYYZbiKAGsFvHcXwUgm6X8e/01hJpURRBE+j4BqlDMG9BWxEKNyo0t5qREEI0Vg9gUcaf5gy4bKLAq5jijZd2FM9Br+RTxtM1qGNaZkqsncqcHsXF6n5TemmkD1w3YOTEuKI+Snrg2Cgk1Jo0fO3xooA9Y6cgKKmtlDjRWETPODgGo9+lpTaDVrGE39QucJsWAYIZzGnRQTCqhAbsIeta4hUhY92ARuv3BXmaAffPUUmrF9cuE0ZgqN1JxAPMCsmwkt6nNlo7yr5+6dC/56E3IJhpMLN7VybE8cPf3cxlsue09lEaNKR/n/mBsQxRe6sDk0UPTO0UTt4LlwguS5Q/fsDNMuu7zKvOnxNzhM+XkqKzrHgqRMW8nJlzDwM56al9+wnQeMizODH+mmkM8DHAEWGadY8RzRFFk0gXlKPajRSMj0A3+g2F/V/kVpSJz/5ApNCvirG3tWsWqKiTEf7cj9UFdTJa/1MbyAi6nB14GoeyCWXlo10VmekmNtAqOc55OyxFWTmpno5ps6NIqhyhXTc/oyqYtY9k2cwetFFLPphpw= # DOCKER_PASSWORD
