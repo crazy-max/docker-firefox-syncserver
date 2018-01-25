@@ -5,12 +5,14 @@
   <a href="https://travis-ci.org/crazy-max/docker-firefox-syncserver"><img src="https://img.shields.io/travis/crazy-max/docker-firefox-syncserver/master.svg?style=flat-square" alt="Build Status"></a>
   <a href="https://hub.docker.com/r/crazymax/firefox-syncserver/"><img src="https://img.shields.io/docker/stars/crazymax/firefox-syncserver.svg?style=flat-square" alt="Docker Stars"></a>
   <a href="https://hub.docker.com/r/crazymax/firefox-syncserver/"><img src="https://img.shields.io/docker/pulls/crazymax/firefox-syncserver.svg?style=flat-square" alt="Docker Pulls"></a>
+  <a href="https://saythanks.io/to/crazymax"><img src="https://img.shields.io/badge/thank-crazymax-426aa5.svg?style=flat-square" alt="Say Thanks"></a>
   <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YY7W3WDEPHCPQ"><img src="https://img.shields.io/badge/donate-paypal-7057ff.svg?style=flat-square" alt="Donate Paypal"></a>
 </p>
 
 ## About
 
-[Firefox Sync Server](http://moz-services-docs.readthedocs.io/en/latest/howtos/run-sync-1.5.html) image for Docker based on [Sync Server 1.6.0](https://github.com/mozilla-services/syncserver).<br />
+🐳 [Firefox Sync Server](http://moz-services-docs.readthedocs.io/en/latest/howtos/run-sync-1.5.html) image for Docker based on [Sync Server 1.6.0](https://github.com/mozilla-services/syncserver).<br />
+If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 🐳 Docker images!
 
 Configuration of this docker image works through environment variables :
 
