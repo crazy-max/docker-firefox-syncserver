@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/crazy-max/docker-firefox-syncserver" target="_blank"><img height="128"src="https://raw.githubusercontent.com/crazy-max/docker-firefox-syncserver/master/res/docker-firefox-syncserver.jpg"></a></p>
+<p align="center"><a href="https://github.com/crazy-max/docker-firefox-syncserver" target="_blank"><img height="128"src="https://raw.githubusercontent.com/crazy-max/docker-firefox-syncserver/master/.res/docker-firefox-syncserver.jpg"></a></p>
 
 <p align="center">
   <a href="https://microbadger.com/images/crazymax/firefox-syncserver"><img src="https://images.microbadger.com/badges/version/crazymax/firefox-syncserver.svg?style=flat-square" alt="Version"></a>
