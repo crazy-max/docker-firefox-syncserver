@@ -6,7 +6,7 @@
   <a href="https://hub.docker.com/r/crazymax/firefox-syncserver/"><img src="https://img.shields.io/docker/stars/crazymax/firefox-syncserver.svg?style=flat-square" alt="Docker Stars"></a>
   <a href="https://hub.docker.com/r/crazymax/firefox-syncserver/"><img src="https://img.shields.io/docker/pulls/crazymax/firefox-syncserver.svg?style=flat-square" alt="Docker Pulls"></a>
   <a href="https://quay.io/repository/crazymax/firefox-syncserver"><img src="https://quay.io/repository/crazymax/firefox-syncserver/status?style=flat-square" alt="Docker Repository on Quay"></a>
-  <a href="https://beerpay.io/crazy-max/docker-dokuwiki"><img src="https://img.shields.io/beerpay/crazy-max/docker-dokuwiki.svg?style=flat-square" alt="Beerpay"></a>
+  <a href="https://beerpay.io/crazy-max/docker-firefox-syncserver"><img src="https://img.shields.io/beerpay/crazy-max/docker-firefox-syncserver.svg?style=flat-square" alt="Beerpay"></a>
   <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YY7W3WDEPHCPQ"><img src="https://img.shields.io/badge/donate-paypal-7057ff.svg?style=flat-square" alt="Donate Paypal"></a>
 </p>
 
