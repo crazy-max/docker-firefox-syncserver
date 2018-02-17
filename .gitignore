@@ -1,7 +1,7 @@
-# Jetbrains
-/*.ipr
-/*.iml
-/*.iws
+.dev
 
-# App
-/.dev
+# JetBrains
+.idea
+*.ipr
+*.iml
+*.iws

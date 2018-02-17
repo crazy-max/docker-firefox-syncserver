@@ -1,0 +1,18 @@
+.dev
+
+# JetBrains
+.idea
+*.ipr
+*.iml
+*.iws
+
+# Repo
+.git
+.res
+.editorconfig
+.gitignore
+.travis.yml
+CHANGELOG.md
+docker-compose.yml
+LICENSE
+README.md
