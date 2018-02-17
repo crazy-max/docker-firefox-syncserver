@@ -1,15 +1,24 @@
 #!/bin/sh
 
-# Timezone
-ln -snf /usr/share/zoneinfo/${TZ:-"UTC"} /etc/localtime
-echo ${TZ:-"UTC"} > /etc/timezone
+TZ=${TZ:-"UTC"}
+FF_SYNCSERVER_PUBLIC_URL=${FF_SYNCSERVER_PUBLIC_URL:-"http://localhost:5000/"}
+FF_SYNCSERVER_ALLOW_NEW_USERS=${FF_SYNCSERVER_ALLOW_NEW_USERS:-"true"}
+FF_SYNCSERVER_FORCE_WSGI_ENVIRON=${FF_SYNCSERVER_FORCE_WSGI_ENVIRON:-"false"}
 
-# Config
+# Timezone
+echo "Setting timezone to ${TZ}..."
+ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime
+echo ${TZ} > /etc/timezone
+
+# Check secret
+echo "Checking prerequisites..."
 if [ -z "$FF_SYNCSERVER_SECRET" ] ; then
-  echo "FF_SYNCSERVER_SECRET must be defined"
+  echo "FATAL: FF_SYNCSERVER_SECRET must be defined"
   exit 1
 fi
 
+# Config
+echo "Generating configuration..."
 cat > "/data/syncserver.ini" <<EOL
 [server:main]
 use = egg:gunicorn
@@ -24,7 +33,7 @@ use = egg:syncserver
 [syncserver]
 # This must be edited to point to the public URL of your server,
 # i.e. the URL as seen by Firefox.
-public_url = ${FF_SYNCSERVER_PUBLIC_URL:-"http://localhost:5000/"}
+public_url = ${FF_SYNCSERVER_PUBLIC_URL}
 
 # This defines the database in which to store all server data.
 sqluri = sqlite:////data/syncserver.db
@@ -40,7 +49,7 @@ secret = ${FF_SYNCSERVER_SECRET}
 
 # Set this to "false" to disable new-user signups on the server.
 # Only request by existing accounts will be honoured.
-allow_new_users = ${FF_SYNCSERVER_ALLOW_NEW_USERS:-"true"}
+allow_new_users = ${FF_SYNCSERVER_ALLOW_NEW_USERS}
 
 # Set this to "true" to work around a mismatch between public_url and
 # the application URL as seen by python, which can happen in certain reverse-
@@ -48,7 +57,7 @@ allow_new_users = ${FF_SYNCSERVER_ALLOW_NEW_USERS:-"true"}
 # details from public_url.  This could have security implications if e.g.
 # you tell the app that it's on HTTPS but it's really on HTTP, so it should
 # only be used as a last resort and after careful checking of server config.
-force_wsgi_environ = ${FF_SYNCSERVER_FORCE_WSGI_ENVIRON:-"false"}
+force_wsgi_environ = ${FF_SYNCSERVER_FORCE_WSGI_ENVIRON}
 
 # Uncomment and edit the following to use a local BrowserID verifier
 # rather than posting assertions to the mozilla-hosted verifier.

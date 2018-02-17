@@ -15,11 +15,13 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
   org.label-schema.vendor="CrazyMax" \
   org.label-schema.schema-version="1.0"
 
-ENV SYNCSERVER_VERSION="1.6.0" \
-  SHA1_COMMIT="7ce829b26bbb0a2fc583872ba7b76a2724041659"
+ENV SYNCSERVER_VERSION="1.7.0" \
+  SHA1_COMMIT="57f4de6773b33d2f887c72aeda506efb358df673"
+
+ADD entrypoint.sh /entrypoint.sh
 
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends supervisor git g++ \
+  && apt-get install -y --no-install-recommends git g++ \
   && git clone https://github.com/mozilla-services/syncserver app \
   && cd app \
   && git reset --hard $SHA1_COMMIT \
@@ -29,15 +31,11 @@ RUN apt-get update \
   && apt-get -y autoremove \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
-  && python ./setup.py develop
-
-ADD entrypoint.sh /entrypoint.sh
-ADD assets /
-
-RUN chmod a+x /entrypoint.sh
+  && python ./setup.py develop \
+  && chmod a+x /entrypoint.sh
 
 EXPOSE 5000
 VOLUME [ "/data" ]
 
 ENTRYPOINT [ "/entrypoint.sh" ]
-CMD [ "/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+CMD [ "/usr/local/bin/gunicorn", "--paste", "/data/syncserver.ini" ]

@@ -12,92 +12,60 @@
 
 ## About
 
-🐳 [Firefox Sync Server](http://moz-services-docs.readthedocs.io/en/latest/howtos/run-sync-1.5.html) image for Docker based on [Sync Server 1.6.0](https://github.com/mozilla-services/syncserver).<br />
+🐳 [Firefox Sync Server](http://moz-services-docs.readthedocs.io/en/latest/howtos/run-sync-1.5.html) image based on Python Slim.<br />
 If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 🐳 Docker images!
 
-Configuration of this docker image works through environment variables :
+## Features
 
+### From docker-compose
+
+* Reverse proxy with [nginx-proxy](https://github.com/jwilder/nginx-proxy)
+* Creation/renewal of Let's Encrypt certificates automatically with [letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion)
+
+## Docker
+
+### Environment variables
+
+* `TZ` : The timezone assigned to the container (default to `UTC`)
 * `FF_SYNCSERVER_PUBLIC_URL` : Must be edited to point to the public URL of your server (default to `http://localhost:5000`).
 * `FF_SYNCSERVER_SECRET` : This is a secret key used for signing authentication tokens. It should be long and randomly-generated.
 * `FF_SYNCSERVER_ALLOW_NEW_USERS` : Set this to `false` to disable new-user signups on the server. Only request by existing accounts will be honoured (default to `true`).
 * `FF_SYNCSERVER_FORCE_WSGI_ENVIRON` : Set this to `true` to work around a mismatch between public_url and the application URL as seen by python, which can happen in certain reverse-proxy hosting setups (default to `false`).
-* `TZ` : The timezone assigned to the container (default to `UTC`)
 
-The volume `/data` is mounted to persist the SQLite database.
+### Volumes
+
+* `/data` : Contains SQLite database
+
+### Ports
+
+* `5000` : Gunicorn port
 
 ## Usage
 
 Docker compose is the recommended way to run this image. You can use the following [docker compose template](docker-compose.yml), then run the container :
 
 ```bash
-$ docker-compose up -d
+docker-compose up -d
+docker-compose logs -f
 ```
 
-Or use the following command:
+Or use the following minimal command :
 
 ```bash
 $ docker run -d -p 5000:5000 --name firefox-syncserver \
-  -e FF_SYNCSERVER_PUBLIC_URL="http://localhost:5000" \
-  -e FF_SYNCSERVER_SECRET="5up3rS3kr1t" \
-  -e FF_SYNCSERVER_ALLOW_NEW_USERS="true" \
-  -e FF_SYNCSERVER_FORCE_WSGI_ENVIRON="false" \
   -e TZ="Europe/Paris" \
+  -e FF_SYNCSERVER_SECRET="5up3rS3kr1t" \
   -v $(pwd)/data:/data \
   crazymax/firefox-syncserver:latest
 ```
 
-## Nginx + Let's encrypt
+## Update
 
-Here is a docker-compose example to use Firefox Sync Server behind a reverse proxy with Nginx + Let's encrypt :
+Recreate the container whenever i push an update :
 
-```yml
-version: '3'
-
-services:
-  proxy:
-    image: jwilder/nginx-proxy:alpine
-    labels:
-      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - ./proxy/conf.d:/etc/nginx/conf.d:rw
-      - ./proxy/vhost.d:/etc/nginx/vhost.d:rw
-      - ./proxy/html:/usr/share/nginx/html:rw
-      - ./proxy/certs:/etc/nginx/certs:ro
-      - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-    restart: always
-
-  letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    depends_on:
-      - proxy
-    volumes:
-      - ./proxy/certs:/etc/nginx/certs:rw
-      - ./proxy/vhost.d:/etc/nginx/vhost.d:rw
-      - ./proxy/html:/usr/share/nginx/html:rw
-      - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    restart: always
-
-  firefox-syncserver:
-    image: crazymax/firefox-syncserver:latest
-    container_name: firefox-syncserver
-    volumes:
-      - ./data:/data
-    environment:
-      - VIRTUAL_HOST=syncserver.example.com
-      - VIRTUAL_PORT=5000
-      - LETSENCRYPT_HOST=syncserver.example.com
-      - LETSENCRYPT_EMAIL=webmaster@example.com
-      - FF_SYNCSERVER_PUBLIC_URL=https://syncserver.example.com
-      - FF_SYNCSERVER_SECRET=5up3rS3kr1t
-      - FF_SYNCSERVER_ALLOW_NEW_USERS=true
-      - FF_SYNCSERVER_FORCE_WSGI_ENVIRON=true
-      - TZ=Europe/Paris
-    restart: always
+```bash
+docker-compose pull
+docker-compose up -d
 ```
 
 ## How can i help ?
