@@ -18,8 +18,7 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ### From docker-compose
 
-* Reverse proxy with [nginx-proxy](https://github.com/jwilder/nginx-proxy)
-* Creation/renewal of Let's Encrypt certificates automatically with [letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion)
+* [Traefik](https://github.com/containous/traefik-library-image) as reverse proxy and creation/renewal of Let's Encrypt certificates
 
 ## Docker
 
@@ -39,16 +38,22 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 * `5000` : Gunicorn port
 
-## Usage
+## Use this image
+
+### Docker Compose
 
 Docker compose is the recommended way to run this image. You can use the following [docker compose template](docker-compose.yml), then run the container :
 
 ```bash
+touch acme.json
+chmod 600 acme.json
 docker-compose up -d
 docker-compose logs -f
 ```
 
-Or use the following minimal command :
+### Command line
+
+You can also use the following minimal command :
 
 ```bash
 $ docker run -d -p 5000:5000 --name firefox-syncserver \
