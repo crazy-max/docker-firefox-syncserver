@@ -1,8 +1,13 @@
 # Changelog
 
+## 1.7.0-RC2 (2018/05/25)
+
+* Come back to Firefox Sync Server 1.7.0
+
 ## 1.6.0-RC3 (2018/05/25)
 
 * Wrong tag pushed (1.7.0)
+* No need of Supervisor
 
 ## 1.7.0-RC1 (2018/02/17)
 
