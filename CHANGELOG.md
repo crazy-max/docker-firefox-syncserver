@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0-RC1 (2018/05/25)
+
+* Upgrade to Firefox Sync Server 1.8.0
+
 ## 1.7.0-RC2 (2018/05/25)
 
 * Come back to Firefox Sync Server 1.7.0

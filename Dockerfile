@@ -15,8 +15,8 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
   org.label-schema.vendor="CrazyMax" \
   org.label-schema.schema-version="1.0"
 
-ENV SYNCSERVER_VERSION="1.7.0" \
-  SHA1_COMMIT="57f4de6773b33d2f887c72aeda506efb358df673"
+ENV SYNCSERVER_VERSION="1.8.0" \
+  SHA1_COMMIT="34344d8b961e1518c7044acaa3c28006bf0c6815"
 
 ADD entrypoint.sh /entrypoint.sh
 
