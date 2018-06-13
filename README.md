@@ -42,7 +42,7 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ### Docker Compose
 
-Docker compose is the recommended way to run this image. You can use the following [docker compose template](docker-compose.yml), then run the container :
+Docker compose is the recommended way to run this image. You can use the following [docker compose template](examples/compose/docker-compose.yml), then run the container :
 
 ```bash
 touch acme.json
