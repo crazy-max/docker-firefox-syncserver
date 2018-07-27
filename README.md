@@ -16,6 +16,10 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ## Features
 
+### Included
+
+* Alpine Linux 3.8
+
 ### From docker-compose
 
 * [Traefik](https://github.com/containous/traefik-library-image) as reverse proxy and creation/renewal of Let's Encrypt certificates

@@ -1,4 +1,4 @@
-FROM python:2.7-slim
+FROM python:2.7-alpine3.8
 MAINTAINER CrazyMax <crazy-max@users.noreply.github.com>
 
 ARG BUILD_DATE
@@ -20,17 +20,17 @@ ENV SYNCSERVER_VERSION="1.8.0" \
 
 ADD entrypoint.sh /entrypoint.sh
 
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends git g++ \
+RUN apk --update --no-cache add \
+    libffi libressl libstdc++ \
+  && apk --update --no-cache add -t build-dependencies \
+    build-base git libffi-dev libressl-dev \
   && git clone https://github.com/mozilla-services/syncserver app \
   && cd app \
   && git reset --hard $SHA1_COMMIT \
   && pip install --upgrade --no-cache-dir -r requirements.txt \
   && pip install --upgrade --no-cache-dir -r dev-requirements.txt \
-  && apt-get -y remove g++ git \
-  && apt-get -y autoremove \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* \
+  && apk del build-dependencies \
+  && rm -rf /tmp/* /var/cache/apk/* \
   && python ./setup.py develop \
   && chmod a+x /entrypoint.sh
 
