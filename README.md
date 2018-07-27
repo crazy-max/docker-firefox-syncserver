@@ -28,11 +28,13 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ### Environment variables
 
-* `TZ` : The timezone assigned to the container (default to `UTC`)
-* `FF_SYNCSERVER_PUBLIC_URL` : Must be edited to point to the public URL of your server (default to `http://localhost:5000`).
-* `FF_SYNCSERVER_SECRET` : This is a secret key used for signing authentication tokens. It should be long and randomly-generated.
-* `FF_SYNCSERVER_ALLOW_NEW_USERS` : Set this to `false` to disable new-user signups on the server. Only request by existing accounts will be honoured (default to `true`).
-* `FF_SYNCSERVER_FORCE_WSGI_ENVIRON` : Set this to `true` to work around a mismatch between public_url and the application URL as seen by python, which can happen in certain reverse-proxy hosting setups (default to `false`).
+| Key                                 | Default                  | Description                               
+|-------------------------------------|--------------------------|-------------------------------------------
+| `TZ`                                | `UTC`                    | Container timezone (e.g. `Europe/Paris`)
+| `FF_SYNCSERVER_PUBLIC_URL`          | `http://localhost:5000`  | Must be edited to point to the public URL of your server
+| `FF_SYNCSERVER_SECRET`              |                          | This is a secret key used for signing authentication tokens. It should be long and randomly-generated.
+| `FF_SYNCSERVER_ALLOW_NEW_USERS`     | `true`                   | Set this to `false` to disable new-user signups on the server. Only request by existing accounts will be honoured
+| `FF_SYNCSERVER_FORCE_WSGI_ENVIRON`  | `false`                  | Set this to `true` to work around a mismatch between public_url and the application URL as seen by python, which can happen in certain reverse-proxy hosting setups
 
 ### Volumes
 
