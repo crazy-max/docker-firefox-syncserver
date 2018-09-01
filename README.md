@@ -28,13 +28,11 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ### Environment variables
 
-| Key                                 | Default                  | Description                               
-|-------------------------------------|--------------------------|-------------------------------------------
-| `TZ`                                | `UTC`                    | Container timezone (e.g. `Europe/Paris`)
-| `FF_SYNCSERVER_PUBLIC_URL`          | `http://localhost:5000`  | Must be edited to point to the public URL of your server
-| `FF_SYNCSERVER_SECRET`              |                          | This is a secret key used for signing authentication tokens. It should be long and randomly-generated.
-| `FF_SYNCSERVER_ALLOW_NEW_USERS`     | `true`                   | Set this to `false` to disable new-user signups on the server. Only request by existing accounts will be honoured
-| `FF_SYNCSERVER_FORCE_WSGI_ENVIRON`  | `false`                  | Set this to `true` to work around a mismatch between public_url and the application URL as seen by python, which can happen in certain reverse-proxy hosting setups
+* `TZ` : The timezone assigned to the container (default `UTC`)
+* `FF_SYNCSERVER_PUBLIC_URL` : Must be edited to point to the public URL of your server (default `http://localhost:5000`).
+* `FF_SYNCSERVER_SECRET` : This is a secret key used for signing authentication tokens. It should be long and randomly-generated.
+* `FF_SYNCSERVER_ALLOW_NEW_USERS` : Set this to `false` to disable new-user signups on the server. Only request by existing accounts will be honoured (default `true`).
+* `FF_SYNCSERVER_FORCE_WSGI_ENVIRON` : Set this to `true` to work around a mismatch between public_url and the application URL as seen by python, which can happen in certain reverse-proxy hosting setups (default `false`).
 
 ### Volumes
 
@@ -78,9 +76,9 @@ docker-compose pull
 docker-compose up -d
 ```
 
-## How can i help ?
+## How can I help ?
 
-All kinds of contributions are welcomed :raised_hands:!<br />
+All kinds of contributions are welcome :raised_hands:!<br />
 The most basic way to show your support is to star :star2: the project, or to raise issues :speech_balloon:<br />
 But we're not gonna lie to each other, I'd rather you buy me a beer or two :beers:!
 
