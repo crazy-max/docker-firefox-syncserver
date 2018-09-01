@@ -1,12 +1,7 @@
 .dev
-
-# JetBrains
 .idea
-*.ipr
 *.iml
-*.iws
 
-# Repo
 .git
 .res
 /examples
