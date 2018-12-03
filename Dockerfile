@@ -18,7 +18,7 @@ LABEL maintainer="CrazyMax" \
 ENV SYNCSERVER_VERSION="1.8.0" \
   SHA1_COMMIT="34344d8b961e1518c7044acaa3c28006bf0c6815"
 
-ADD entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 
 RUN apk --update --no-cache add \
     libffi libressl libstdc++ \
