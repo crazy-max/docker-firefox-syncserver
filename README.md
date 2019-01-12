@@ -61,7 +61,7 @@ docker-compose logs -f
 You can also use the following minimal command :
 
 ```bash
-$ docker run -d -p 5000:5000 --name firefox-syncserver \
+$ docker run -d -p 5000:5000 --name firefox_syncserver \
   -e TZ="Europe/Paris" \
   -e FF_SYNCSERVER_SECRET="5up3rS3kr1t" \
   -v $(pwd)/data:/data \

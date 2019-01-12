@@ -2,7 +2,8 @@ version: "3.2"
 
 services:
   traefik:
-    image: traefik:1.6-alpine
+    image: traefik:1.7-alpine
+    container_name: traefik
     command:
       - "--logLevel=INFO"
       - "--defaultentrypoints=http,https"
@@ -33,7 +34,7 @@ services:
 
   firefox-syncserver:
     image: crazymax/firefox-syncserver:latest
-    container_name: firefox-syncserver
+    container_name: firefox_syncserver
     volumes:
       - "firefox-syncserver:/data"
     labels:
