@@ -27,6 +27,7 @@ RUN apk --update --no-cache add \
   && git clone https://github.com/mozilla-services/syncserver app \
   && cd app \
   && git reset --hard $SHA1_COMMIT \
+  && pip install pymysql \
   && pip install --upgrade --no-cache-dir -r requirements.txt \
   && pip install --upgrade --no-cache-dir -r dev-requirements.txt \
   && apk del build-dependencies \
@@ -38,4 +39,4 @@ EXPOSE 5000
 VOLUME [ "/data" ]
 
 ENTRYPOINT [ "/entrypoint.sh" ]
-CMD [ "/usr/local/bin/gunicorn", "--paste", "/data/syncserver.ini" ]
+CMD [ "/usr/local/bin/gunicorn", "--paste", "/syncserver.ini" ]

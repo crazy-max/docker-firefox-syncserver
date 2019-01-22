@@ -4,6 +4,7 @@ TZ=${TZ:-UTC}
 FF_SYNCSERVER_PUBLIC_URL=${FF_SYNCSERVER_PUBLIC_URL:-http://localhost:5000/}
 FF_SYNCSERVER_ALLOW_NEW_USERS=${FF_SYNCSERVER_ALLOW_NEW_USERS:-true}
 FF_SYNCSERVER_FORCE_WSGI_ENVIRON=${FF_SYNCSERVER_FORCE_WSGI_ENVIRON:-false}
+FF_SYNCSERVER_SQLURI=${FF_SYNCSERVER_SQLURI:-sqlite:///data/syncserver.db}
 
 # Timezone
 echo "Setting timezone to ${TZ}..."
@@ -19,7 +20,7 @@ fi
 
 # Config
 echo "Generating configuration..."
-cat > "/data/syncserver.ini" <<EOL
+cat > "/syncserver.ini" <<EOL
 [server:main]
 use = egg:gunicorn
 host = 0.0.0.0
@@ -36,7 +37,7 @@ use = egg:syncserver
 public_url = ${FF_SYNCSERVER_PUBLIC_URL}
 
 # This defines the database in which to store all server data.
-sqluri = sqlite:////data/syncserver.db
+sqluri = ${FF_SYNCSERVER_SQLURI}
 
 # This is a secret key used for signing authentication tokens.
 # It should be long and randomly-generated.

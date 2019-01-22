@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.8.0-RC3 (2019/01/22)
+
+* Add `FF_SYNCSERVER_SQLURI` env var (Issue #5)
+* No need to put `syncserver.ini` in data folder
+
 ## 1.8.0-RC2 (2018/07/27)
 
 * Switch to Alpine 3.8 based image

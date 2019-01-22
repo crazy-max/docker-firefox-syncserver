@@ -34,10 +34,11 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 * `FF_SYNCSERVER_SECRET` : This is a secret key used for signing authentication tokens. It should be long and randomly-generated.
 * `FF_SYNCSERVER_ALLOW_NEW_USERS` : Set this to `false` to disable new-user signups on the server. Only request by existing accounts will be honoured (default `true`).
 * `FF_SYNCSERVER_FORCE_WSGI_ENVIRON` : Set this to `true` to work around a mismatch between public_url and the application URL as seen by python, which can happen in certain reverse-proxy hosting setups (default `false`).
+* `FF_SYNCSERVER_SQLURI` : Defines the database in which to store all server data (default `sqlite:///data/syncserver.db`).
 
 ### Volumes
 
-* `/data` : Contains SQLite database
+* `/data` : Contains SQLite database if `FF_SYNCSERVER_SQLURI` is untouched
 
 ### Ports
 
