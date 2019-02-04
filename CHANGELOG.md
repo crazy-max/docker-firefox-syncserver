@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0-RC4 (2019/02/04)
+
+* Fix build issue (see pypa/pip#6158)
+
 ## 1.8.0-RC3 (2019/01/22)
 
 * Add `FF_SYNCSERVER_SQLURI` env var (Issue #5)

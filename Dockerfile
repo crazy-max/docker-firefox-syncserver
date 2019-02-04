@@ -28,8 +28,8 @@ RUN apk --update --no-cache add \
   && cd app \
   && git reset --hard $SHA1_COMMIT \
   && pip install pymysql \
-  && pip install --upgrade --no-cache-dir -r requirements.txt \
-  && pip install --upgrade --no-cache-dir -r dev-requirements.txt \
+  && pip install --upgrade --no-cache-dir --no-use-pep517 -r requirements.txt \
+  && pip install --upgrade --no-cache-dir --no-use-pep517 -r dev-requirements.txt \
   && apk del build-dependencies \
   && rm -rf /tmp/* /var/cache/apk/* \
   && python ./setup.py develop \
