@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0-RC5 (2019/03/20)
+
+* Switch to Alpine 3.9 based image
+
 ## 1.8.0-RC4 (2019/02/04)
 
 * Fix build issue (see pypa/pip#6158)
