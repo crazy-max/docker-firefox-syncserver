@@ -18,9 +18,11 @@ if [ -z "$FF_SYNCSERVER_SECRET" ] ; then
   exit 1
 fi
 
+SYNCSERVER_INI_PATH="/syncserver.ini"
+
 # Config
 echo "Generating configuration..."
-cat > "/syncserver.ini" <<EOL
+cat > "$SYNCSERVER_INI_PATH" <<EOL
 [server:main]
 use = egg:gunicorn
 host = 0.0.0.0
@@ -66,6 +68,14 @@ force_wsgi_environ = ${FF_SYNCSERVER_FORCE_WSGI_ENVIRON}
 #[browserid]
 #backend = tokenserver.verifiers.LocalVerifier
 #audiences = https://localhost:5000
+
 EOL
+
+if [ -n "$FF_SYNCSERVER_FORWARDED_ALLOW_IPS" ]; then
+  cat >> "$SYNCSERVER_INI_PATH" <<EOL
+# If you are running Nginx on a different host than the ff sync server the ff snyc server have to trust the X-Forwarded-* headers sent by Nginx.
+forwarded_allow_ips = ${FF_SYNCSERVER_FORWARDED_ALLOW_IPS}
+EOL
+fi
 
 exec "$@"
