@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0-RC6 (2019/03/21)
+
+* Option to allow forwarded IPs (PR #7)
+
 ## 1.8.0-RC5 (2019/03/20)
 
 * Switch to Alpine 3.9 based image
