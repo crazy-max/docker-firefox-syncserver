@@ -16,20 +16,25 @@ LABEL maintainer="CrazyMax" \
   org.label-schema.schema-version="1.0"
 
 ENV SYNCSERVER_VERSION="1.8.0" \
-  SHA1_COMMIT="34344d8b961e1518c7044acaa3c28006bf0c6815"
+  SHA1_COMMIT="ac7b29cc40348330be899437b4a8b3ee9d341127"
 
 COPY entrypoint.sh /entrypoint.sh
 
 RUN apk --update --no-cache add \
-    libffi libressl libstdc++ \
+    libffi \
+    libressl \
+    libstdc++ \
   && apk --update --no-cache add -t build-dependencies \
-    build-base git libffi-dev libressl-dev \
+    build-base \
+    git \
+    libffi-dev \
+    libressl-dev \
   && git clone https://github.com/mozilla-services/syncserver app \
   && cd app \
   && git reset --hard $SHA1_COMMIT \
   && pip install pymysql \
-  && pip install --upgrade --no-cache-dir --no-use-pep517 -r requirements.txt \
-  && pip install --upgrade --no-cache-dir --no-use-pep517 -r dev-requirements.txt \
+  && pip install --upgrade --no-cache-dir -r requirements.txt \
+  && pip install --upgrade --no-cache-dir -r dev-requirements.txt \
   && apk del build-dependencies \
   && rm -rf /tmp/* /var/cache/apk/* \
   && python ./setup.py develop \

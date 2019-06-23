@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0-RC7 (2019/06/23)
+
+* mozilla-services/syncserver@ac7b29c
+
 ## 1.8.0-RC6 (2019/03/21)
 
 * Option to allow forwarded IPs (PR #7)
