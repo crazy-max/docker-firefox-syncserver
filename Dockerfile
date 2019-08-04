@@ -18,9 +18,8 @@ LABEL maintainer="CrazyMax" \
 ENV SYNCSERVER_VERSION="1.8.0" \
   SHA1_COMMIT="ac7b29cc40348330be899437b4a8b3ee9d341127"
 
-COPY entrypoint.sh /entrypoint.sh
-
 RUN apk --update --no-cache add \
+    curl \
     libffi \
     libressl \
     libstdc++ \
@@ -37,11 +36,17 @@ RUN apk --update --no-cache add \
   && pip install --upgrade --no-cache-dir -r dev-requirements.txt \
   && apk del build-dependencies \
   && rm -rf /tmp/* /var/cache/apk/* \
-  && python ./setup.py develop \
-  && chmod a+x /entrypoint.sh
+  && python ./setup.py develop
+
+COPY entrypoint.sh /entrypoint.sh
+
+RUN chmod a+x /entrypoint.sh
 
 EXPOSE 5000
 VOLUME [ "/data" ]
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "/usr/local/bin/gunicorn", "--paste", "/syncserver.ini" ]
+
+HEALTHCHECK --interval=10s --timeout=5s \
+  CMD curl --fail ${FF_SYNCSERVER_PUBLIC_URL} || exit 1

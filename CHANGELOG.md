@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.8.0-RC8 (2019/08/04)
+
+* Add healthcheck
+* Alpine Linux 3.10
+
 ## 1.8.0-RC7 (2019/06/23)
 
 * mozilla-services/syncserver@ac7b29c
