@@ -35,5 +35,5 @@ about: Create a report to help us improve
 ### Logs
 
 ```
-> Container logs (set LOG_LEVEL to debug if applicable)
+> Container logs (set FF_SYNCSERVER_LOGLEVEL to debug if applicable)
 ```
