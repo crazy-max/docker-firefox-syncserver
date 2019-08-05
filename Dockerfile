@@ -47,6 +47,3 @@ VOLUME [ "/data" ]
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "/usr/local/bin/gunicorn", "--paste", "/syncserver.ini" ]
-
-HEALTHCHECK --interval=10s --timeout=5s \
-  CMD curl --fail ${FF_SYNCSERVER_PUBLIC_URL} || exit 1
