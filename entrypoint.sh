@@ -1,6 +1,8 @@
 #!/bin/sh
 
 TZ=${TZ:-UTC}
+FF_SYNCSERVER_ACCESSLOG=${FF_SYNCSERVER_ACCESSLOG:-false}
+FF_SYNCSERVER_LOGLEVEL=${FF_SYNCSERVER_LOGLEVEL:-info}
 FF_SYNCSERVER_PUBLIC_URL=${FF_SYNCSERVER_PUBLIC_URL:-http://localhost:5000/}
 FF_SYNCSERVER_ALLOW_NEW_USERS=${FF_SYNCSERVER_ALLOW_NEW_USERS:-true}
 FF_SYNCSERVER_FORCE_WSGI_ENVIRON=${FF_SYNCSERVER_FORCE_WSGI_ENVIRON:-false}
@@ -20,6 +22,11 @@ fi
 
 SYNCSERVER_INI_PATH="/syncserver.ini"
 
+GU_ACCESSLOG=-
+if [ "$FF_SYNCSERVER_ACCESSLOG" != true ]; then
+  GU_ACCESSLOG=None
+fi
+
 # Config
 echo "Generating configuration..."
 cat > "$SYNCSERVER_INI_PATH" <<EOL
@@ -29,6 +36,8 @@ host = 0.0.0.0
 port = 5000
 workers = 1
 timeout = 30
+accesslog = ${GU_ACCESSLOG}
+loglevel = ${FF_SYNCSERVER_LOGLEVEL}
 
 [app:main]
 use = egg:syncserver

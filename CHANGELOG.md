@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.8.0-RC9 (2019/08/05)
+
+* Option to enable access log (`FF_SYNCSERVER_ACCESSLOG`)
+* Option to tune log level (`FF_SYNCSERVER_LOGLEVEL`)
+* Issue with healthcheck, remove for now (Issue #10)
+
 ## 1.8.0-RC8 (2019/08/04)
 
 * Add healthcheck

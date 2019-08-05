@@ -16,6 +16,8 @@
 🐳 [Firefox Sync Server](http://moz-services-docs.readthedocs.io/en/latest/howtos/run-sync-1.5.html) image based on Python Alpine Linux.<br />
 If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 🐳 Docker images!
 
+💡 Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun) project!
+
 ## Features
 
 * [Traefik](https://github.com/containous/traefik-library-image) as reverse proxy and creation/renewal of Let's Encrypt certificates
@@ -24,13 +26,15 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ### Environment variables
 
-* `TZ` : The timezone assigned to the container (default `UTC`)
-* `FF_SYNCSERVER_PUBLIC_URL` : Must be edited to point to the public URL of your server (default `http://localhost:5000`).
-* `FF_SYNCSERVER_SECRET` : This is a secret key used for signing authentication tokens. It should be long and randomly-generated.
-* `FF_SYNCSERVER_ALLOW_NEW_USERS` : Set this to `false` to disable new-user signups on the server. Only request by existing accounts will be honoured (default `true`).
-* `FF_SYNCSERVER_FORCE_WSGI_ENVIRON` : Set this to `true` to work around a mismatch between public_url and the application URL as seen by python, which can happen in certain reverse-proxy hosting setups (default `false`).
-* `FF_SYNCSERVER_SQLURI` : Defines the database in which to store all server data (default `sqlite:///data/syncserver.db`).
-* `FF_SYNCSERVER_FORWARDED_ALLOW_IPS` : Set this to `*` or an IP range if you use an Nginx reverse proxy (optional). 
+* `TZ`: The timezone assigned to the container (default `UTC`)
+* `FF_SYNCSERVER_ACCESSLOG`: Display access log (default `false`)
+* `FF_SYNCSERVER_LOGLEVEL`: Log level output (default `info`)
+* `FF_SYNCSERVER_PUBLIC_URL`: Must be edited to point to the public URL of your server (default `http://localhost:5000`).
+* `FF_SYNCSERVER_SECRET`: This is a secret key used for signing authentication tokens. It should be long and randomly-generated.
+* `FF_SYNCSERVER_ALLOW_NEW_USERS`: Set this to `false` to disable new-user signups on the server. Only request by existing accounts will be honoured (default `true`).
+* `FF_SYNCSERVER_FORCE_WSGI_ENVIRON`: Set this to `true` to work around a mismatch between public_url and the application URL as seen by python, which can happen in certain reverse-proxy hosting setups (default `false`).
+* `FF_SYNCSERVER_SQLURI`: Defines the database in which to store all server data (default `sqlite:///data/syncserver.db`).
+* `FF_SYNCSERVER_FORWARDED_ALLOW_IPS`: Set this to `*` or an IP range if you use an Nginx reverse proxy (optional). 
 
 ### Volumes
 
