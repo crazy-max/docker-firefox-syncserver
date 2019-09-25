@@ -16,7 +16,7 @@ LABEL maintainer="CrazyMax" \
   org.label-schema.schema-version="1.0"
 
 ENV SYNCSERVER_VERSION="1.8.0" \
-  SHA1_COMMIT="ac7b29cc40348330be899437b4a8b3ee9d341127" \
+  SHA1_COMMIT="e9b63a0871e9881a8985fe53f0c39fa79538b6e8" \
   TZ="UTC"
 
 RUN apk --update --no-cache add \
