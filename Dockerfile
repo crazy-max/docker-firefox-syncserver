@@ -16,13 +16,16 @@ LABEL maintainer="CrazyMax" \
   org.label-schema.schema-version="1.0"
 
 ENV SYNCSERVER_VERSION="1.8.0" \
-  SHA1_COMMIT="ac7b29cc40348330be899437b4a8b3ee9d341127"
+  SHA1_COMMIT="ac7b29cc40348330be899437b4a8b3ee9d341127" \
+  TZ="UTC"
 
 RUN apk --update --no-cache add \
     curl \
     libffi \
     libressl \
     libstdc++ \
+    shadow \
+    tzdata \
   && apk --update --no-cache add -t build-dependencies \
     build-base \
     git \
@@ -40,10 +43,16 @@ RUN apk --update --no-cache add \
 
 COPY entrypoint.sh /entrypoint.sh
 
-RUN chmod a+x /entrypoint.sh
+RUN chmod a+x /entrypoint.sh \
+  && mkdir -p /data /opt/syncserver \
+  && addgroup -g 1000 syncserver \
+  && adduser -u 1000 -G syncserver -h /data -s /bin/sh -D syncserver \
+  && chown -R syncserver. /data /opt/syncserver
+
+USER syncserver
 
 EXPOSE 5000
 VOLUME [ "/data" ]
 
 ENTRYPOINT [ "/entrypoint.sh" ]
-CMD [ "/usr/local/bin/gunicorn", "--paste", "/syncserver.ini" ]
+CMD [ "/usr/local/bin/gunicorn", "--paste", "/opt/syncserver/syncserver.ini" ]

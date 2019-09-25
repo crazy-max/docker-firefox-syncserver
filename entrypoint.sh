@@ -1,17 +1,11 @@
 #!/bin/sh
 
-TZ=${TZ:-UTC}
 FF_SYNCSERVER_ACCESSLOG=${FF_SYNCSERVER_ACCESSLOG:-false}
 FF_SYNCSERVER_LOGLEVEL=${FF_SYNCSERVER_LOGLEVEL:-info}
 FF_SYNCSERVER_PUBLIC_URL=${FF_SYNCSERVER_PUBLIC_URL:-http://localhost:5000/}
 FF_SYNCSERVER_ALLOW_NEW_USERS=${FF_SYNCSERVER_ALLOW_NEW_USERS:-true}
 FF_SYNCSERVER_FORCE_WSGI_ENVIRON=${FF_SYNCSERVER_FORCE_WSGI_ENVIRON:-false}
 FF_SYNCSERVER_SQLURI=${FF_SYNCSERVER_SQLURI:-sqlite:///data/syncserver.db}
-
-# Timezone
-echo "Setting timezone to ${TZ}..."
-ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime
-echo ${TZ} > /etc/timezone
 
 # Check secret
 echo "Checking prerequisites..."
@@ -20,11 +14,11 @@ if [ -z "$FF_SYNCSERVER_SECRET" ] ; then
   exit 1
 fi
 
-SYNCSERVER_INI_PATH="/syncserver.ini"
+SYNCSERVER_INI_PATH="/opt/syncserver/syncserver.ini"
 
-GU_ACCESSLOG=-
+GU_ACCESSLOG="accesslog = -"
 if [ "$FF_SYNCSERVER_ACCESSLOG" != true ]; then
-  GU_ACCESSLOG=None
+  GU_ACCESSLOG=
 fi
 
 # Config
@@ -36,8 +30,8 @@ host = 0.0.0.0
 port = 5000
 workers = 1
 timeout = 30
-accesslog = ${GU_ACCESSLOG}
 loglevel = ${FF_SYNCSERVER_LOGLEVEL}
+${GU_ACCESSLOG}
 
 [app:main]
 use = egg:syncserver
