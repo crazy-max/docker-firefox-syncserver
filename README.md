@@ -1,8 +1,8 @@
 <p align="center"><a href="https://github.com/crazy-max/docker-firefox-syncserver" target="_blank"><img height="128"src="https://raw.githubusercontent.com/crazy-max/docker-firefox-syncserver/master/.res/docker-firefox-syncserver.jpg"></a></p>
 
 <p align="center">
-  <a href="https://hub.docker.com/r/crazymax/firefox-syncserver/"><img src="https://img.shields.io/badge/dynamic/json.svg?label=version&query=$.results[1].name&url=https://hub.docker.com/v2/repositories/crazymax/firefox-syncserver/tags&style=flat-square" alt="Latest Version"></a>
-  <a href="https://travis-ci.com/crazy-max/docker-firefox-syncserver"><img src="https://img.shields.io/travis/com/crazy-max/docker-firefox-syncserver/master.svg?style=flat-square" alt="Build Status"></a>
+  <a href="https://hub.docker.com/r/crazymax/firefox-syncserver/tags?page=1&ordering=last_updated"><img src="https://img.shields.io/github/v/tag/crazy-max/docker-firefox-syncserver?label=version&style=flat-square" alt="Latest Version"></a>
+  <a href="https://github.com/crazy-max/docker-firefox-syncserver/actions"><img src="https://github.com/crazy-max/docker-firefox-syncserver/workflows/build/badge.svg" alt="Build Status"></a>
   <a href="https://hub.docker.com/r/crazymax/firefox-syncserver/"><img src="https://img.shields.io/docker/stars/crazymax/firefox-syncserver.svg?style=flat-square" alt="Docker Stars"></a>
   <a href="https://hub.docker.com/r/crazymax/firefox-syncserver/"><img src="https://img.shields.io/docker/pulls/crazymax/firefox-syncserver.svg?style=flat-square" alt="Docker Pulls"></a>
   <a href="https://quay.io/repository/crazymax/firefox-syncserver"><img src="https://quay.io/repository/crazymax/firefox-syncserver/status?style=flat-square" alt="Docker Repository on Quay"></a>
@@ -26,7 +26,7 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ### Multi-platform image
 
-Following multi-platform images are available:
+Following platforms for this image are available:
 
 ```
 $ docker run --rm mplatform/mquery crazymax/firefox-syncserver:latest
