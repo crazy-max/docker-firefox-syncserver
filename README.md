@@ -26,7 +26,7 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ### Multi-platform image
 
-Following platforms for this image are available:
+Following multi-platform images are available:
 
 ```
 $ docker run --rm mplatform/mquery crazymax/firefox-syncserver:latest
