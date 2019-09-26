@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.8.0-RC10 (2019/09/26)
+
+* Switch to GitHub Actions
+* Stop publishing Docker image on Quay
+* Multi-platform Docker image
+* mozilla-services/syncserver@e9b63a0
+* Run as non-root user
+* Fix access log issue if not defined
+* Implicit timezone through tzdata package
+
 ## 1.8.0-RC9 (2019/08/05)
 
 * Option to enable access log (`FF_SYNCSERVER_ACCESSLOG`)
