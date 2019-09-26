@@ -1,16 +1,14 @@
-FROM python:2.7-alpine3.10
+# syntax=docker/dockerfile:experimental
+FROM --platform=${TARGETPLATFORM:-linux/amd64} python:2.7-alpine3.10
 
-ARG BUILD_DATE
-ARG VCS_REF
-ARG VERSION
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+RUN printf "I am running on ${BUILDPLATFORM:-linux/amd64}, building for ${TARGETPLATFORM:-linux/amd64}\n$(uname -a)\n"
 
 LABEL maintainer="CrazyMax" \
-  org.label-schema.build-date=$BUILD_DATE \
   org.label-schema.name="firefox-syncserver" \
   org.label-schema.description="Firefox Sync Server" \
-  org.label-schema.version=$VERSION \
   org.label-schema.url="https://github.com/crazy-max/docker-firefox-syncserver" \
-  org.label-schema.vcs-ref=$VCS_REF \
   org.label-schema.vcs-url="https://github.com/crazy-max/docker-firefox-syncserver" \
   org.label-schema.vendor="CrazyMax" \
   org.label-schema.schema-version="1.0"

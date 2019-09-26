@@ -24,6 +24,24 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ## Docker
 
+### Multi-platform image
+
+Following platforms for this image are available:
+
+```
+$ docker run --rm mplatform/mquery crazymax/firefox-syncserver:latest
+Image: crazymax/firefox-syncserver:latest
+ * Manifest List: Yes
+ * Supported platforms:
+   - linux/amd64
+   - linux/arm/v6
+   - linux/arm/v7
+   - linux/arm64
+   - linux/386
+   - linux/ppc64le
+   - linux/s390x
+```
+
 ### Environment variables
 
 * `TZ`: The timezone assigned to the container (default `UTC`)
