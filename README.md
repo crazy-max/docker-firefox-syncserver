@@ -86,6 +86,12 @@ $ docker run -d -p 5000:5000 --name firefox_syncserver \
   crazymax/firefox-syncserver:latest
 ```
 
+## Notes
+
+### Use with MySQL database
+
+Set `FF_SYNCSERVER_SQLURI=pymysql://user:password@mysql_server_ip/db_name`
+
 ## Update
 
 Recreate the container whenever I push an update :
