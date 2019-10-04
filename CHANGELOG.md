@@ -10,6 +10,15 @@
 * Fix access log issue if not defined
 * Implicit timezone through tzdata package
 
+> :warning: **UPGRADE NOTES**
+> As the Docker container runs as a non-root user, you have to first stop the container and change permissions to `data` volume:
+> ```
+> docker-compose stop
+> chown -R 1000:1000 data/
+> docker-compose pull
+> docker-compose up -d
+> ```
+
 ## 1.8.0-RC9 (2019/08/05)
 
 * Option to enable access log (`FF_SYNCSERVER_ACCESSLOG`)
