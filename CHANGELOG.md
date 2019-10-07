@@ -3,15 +3,15 @@
 ## 1.8.0-RC10 (2019/09/26)
 
 * Switch to GitHub Actions
-* Stop publishing Docker image on Quay
+* :warning: Stop publishing Docker image on Quay
 * Multi-platform Docker image
 * mozilla-services/syncserver@e9b63a0
-* Run as non-root user
+* :warning: Run as non-root user
 * Fix access log issue if not defined
 * Implicit timezone through tzdata package
 
 > :warning: **UPGRADE NOTES**
-> As the Docker container runs as a non-root user, you have to first stop the container and change permissions to `data` volume:
+> As the Docker container now runs as a non-root user, you have to first stop the container and change permissions to `data` volume:
 > ```
 > docker-compose stop
 > chown -R 1000:1000 data/
