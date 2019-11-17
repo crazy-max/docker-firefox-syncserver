@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 FF_SYNCSERVER_ACCESSLOG=${FF_SYNCSERVER_ACCESSLOG:-false}
 FF_SYNCSERVER_LOGLEVEL=${FF_SYNCSERVER_LOGLEVEL:-info}
@@ -6,6 +6,29 @@ FF_SYNCSERVER_PUBLIC_URL=${FF_SYNCSERVER_PUBLIC_URL:-http://localhost:5000/}
 FF_SYNCSERVER_ALLOW_NEW_USERS=${FF_SYNCSERVER_ALLOW_NEW_USERS:-true}
 FF_SYNCSERVER_FORCE_WSGI_ENVIRON=${FF_SYNCSERVER_FORCE_WSGI_ENVIRON:-false}
 FF_SYNCSERVER_SQLURI=${FF_SYNCSERVER_SQLURI:-sqlite:///data/syncserver.db}
+
+# From https://github.com/docker-library/mariadb/blob/master/docker-entrypoint.sh#L21-L41
+# usage: file_env VAR [DEFAULT]
+#    ie: file_env 'XYZ_DB_PASSWORD' 'example'
+# (will allow for "$XYZ_DB_PASSWORD_FILE" to fill in the value of
+#  "$XYZ_DB_PASSWORD" from a file, especially for Docker's secrets feature)
+file_env() {
+  local var="$1"
+  local fileVar="${var}_FILE"
+  local def="${2:-}"
+  if [ "${!var:-}" ] && [ "${!fileVar:-}" ]; then
+    echo >&2 "error: both $var and $fileVar are set (but are exclusive)"
+    exit 1
+  fi
+  local val="$def"
+  if [ "${!var:-}" ]; then
+    val="${!var}"
+  elif [ "${!fileVar:-}" ]; then
+    val="$(< "${!fileVar}")"
+  fi
+  export "$var"="$val"
+  unset "$fileVar"
+}
 
 if [ -n "${PGID}" ] && [ "${PGID}" != "$(id -g syncserver)" ]; then
   echo "Switching to PGID ${PGID}..."
@@ -19,8 +42,9 @@ fi
 
 # Check secret
 echo "Checking prerequisites..."
+file_env 'FF_SYNCSERVER_SECRET'
 if [ -z "$FF_SYNCSERVER_SECRET" ] ; then
-  echo "FATAL: FF_SYNCSERVER_SECRET must be defined"
+  >&2 echo "ERROR: Either FF_SYNCSERVER_SECRET or FF_SYNCSERVER_SECRET_FILE must be defined"
   exit 1
 fi
 

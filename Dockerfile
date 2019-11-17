@@ -27,6 +27,7 @@ ENV SYNCSERVER_VERSION="1.8.0" \
   PGID="1000"
 
 RUN apk --update --no-cache add \
+    bash \
     curl \
     libffi \
     libressl \
