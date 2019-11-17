@@ -46,6 +46,8 @@ Image: crazymax/firefox-syncserver:latest
 ### Environment variables
 
 * `TZ`: The timezone assigned to the container (default `UTC`)
+* `PUID`: Process UID (default `1000`)
+* `PGID`: Process GID (default `1000`)
 * `FF_SYNCSERVER_ACCESSLOG`: Display access log (default `false`)
 * `FF_SYNCSERVER_LOGLEVEL`: Log level output (default `info`)
 * `FF_SYNCSERVER_PUBLIC_URL`: Must be edited to point to the public URL of your server (default `http://localhost:5000`).

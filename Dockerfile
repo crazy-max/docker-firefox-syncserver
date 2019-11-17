@@ -22,7 +22,9 @@ LABEL maintainer="CrazyMax" \
 
 ENV SYNCSERVER_VERSION="1.8.0" \
   SHA1_COMMIT="e9b63a0871e9881a8985fe53f0c39fa79538b6e8" \
-  TZ="UTC"
+  TZ="UTC" \
+  PUID="1000" \
+  PGID="1000"
 
 RUN apk --update --no-cache add \
     curl \
@@ -30,6 +32,7 @@ RUN apk --update --no-cache add \
     libressl \
     libstdc++ \
     shadow \
+    su-exec \
     tzdata \
   && apk --update --no-cache add -t build-dependencies \
     build-base \
@@ -50,11 +53,9 @@ COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod a+x /entrypoint.sh \
   && mkdir -p /data /opt/syncserver \
-  && addgroup -g 1000 syncserver \
-  && adduser -u 1000 -G syncserver -h /data -s /bin/sh -D syncserver \
+  && addgroup -g ${PGID} syncserver \
+  && adduser -u ${PUID} -G syncserver -h /data -s /bin/sh -D syncserver \
   && chown -R syncserver. /data /opt/syncserver
-
-USER syncserver
 
 EXPOSE 5000
 VOLUME [ "/data" ]

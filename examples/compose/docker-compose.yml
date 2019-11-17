@@ -42,12 +42,8 @@ services:
       - "traefik.backend=firefox-syncserver"
       - "traefik.port=5000"
       - "traefik.frontend.rule=Host:firefox-syncserver.example.com"
-    environment:
-      - "TZ=Europe/Paris"
-      - "FF_SYNCSERVER_PUBLIC_URL=https://firefox-syncserver.example.com"
-      - "FF_SYNCSERVER_SECRET=5up3rS3kr1t"
-      - "FF_SYNCSERVER_ALLOW_NEW_USERS=true"
-      - "FF_SYNCSERVER_FORCE_WSGI_ENVIRON=false"
+    env_file:
+      - "./firefox-syncserver.env"
     restart: always
 
 volumes:

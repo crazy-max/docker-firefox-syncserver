@@ -7,6 +7,16 @@ FF_SYNCSERVER_ALLOW_NEW_USERS=${FF_SYNCSERVER_ALLOW_NEW_USERS:-true}
 FF_SYNCSERVER_FORCE_WSGI_ENVIRON=${FF_SYNCSERVER_FORCE_WSGI_ENVIRON:-false}
 FF_SYNCSERVER_SQLURI=${FF_SYNCSERVER_SQLURI:-sqlite:///data/syncserver.db}
 
+if [ -n "${PGID}" ] && [ "${PGID}" != "$(id -g syncserver)" ]; then
+  echo "Switching to PGID ${PGID}..."
+  sed -i -e "s/^syncserver:\([^:]*\):[0-9]*/syncserver:\1:${PGID}/" /etc/group
+  sed -i -e "s/^syncserver:\([^:]*\):\([0-9]*\):[0-9]*/syncserver:\1:\2:${PGID}/" /etc/passwd
+fi
+if [ -n "${PUID}" ] && [ "${PUID}" != "$(id -u syncserver)" ]; then
+  echo "Switching to PUID ${PUID}..."
+  sed -i -e "s/^syncserver:\([^:]*\):[0-9]*:\([0-9]*\)/syncserver:\1:${PUID}:\2/" /etc/passwd
+fi
+
 # Check secret
 echo "Checking prerequisites..."
 if [ -z "$FF_SYNCSERVER_SECRET" ] ; then
@@ -81,4 +91,7 @@ forwarded_allow_ips = ${FF_SYNCSERVER_FORWARDED_ALLOW_IPS}
 EOL
 fi
 
-exec "$@"
+echo "Fixing perms..."
+chown -R syncserver:syncserver /data /opt/syncserver
+
+exec su-exec syncserver:syncserver "$@"
