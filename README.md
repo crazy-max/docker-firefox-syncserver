@@ -61,7 +61,7 @@ Image: crazymax/firefox-syncserver:latest
 
 * `/data`: Contains SQLite database if `FF_SYNCSERVER_SQLURI` is untouched
 
-> :warning: Note that the volume should be owned by uid `1000` and gid `1000`. If you don't give the volume correct permissions, the container may not start.
+> :warning: Note that the volumes should be owned by the user/group with the specified `PUID` and `PGID`. If you don't give the volume correct permissions, the container may not start.
 
 ### Ports
 
