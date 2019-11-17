@@ -21,7 +21,7 @@ LABEL maintainer="CrazyMax" \
   org.label-schema.schema-version="1.0"
 
 ENV SYNCSERVER_VERSION="1.8.0" \
-  SHA1_COMMIT="e9b63a0871e9881a8985fe53f0c39fa79538b6e8" \
+  SHA1_COMMIT="5932c464d70ec9cf0344b1d3e970b3711de6a98e" \
   TZ="UTC" \
   PUID="1000" \
   PGID="1000"

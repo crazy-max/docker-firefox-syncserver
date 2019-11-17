@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.8.0-RC11 (2019/11/17)
+
+* Allow to set custom `PUID`/`PGID`
+* Allow to use Docker secrets for `FF_SYNCSERVER_SECRET`
+* mozilla-services/syncserver@5932c46
+
 ## 1.8.0-RC10 (2019/09/26)
 
 * Switch to GitHub Actions
