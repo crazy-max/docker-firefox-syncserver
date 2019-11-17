@@ -21,7 +21,7 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 * Run as non-root user
 * Multi-platform image
-* [Traefik](https://github.com/containous/traefik-library-image) as reverse proxy and creation/renewal of Let's Encrypt certificates
+* [Traefik](https://github.com/containous/traefik-library-image) as reverse proxy and creation/renewal of Let's Encrypt certificates (see [this template](examples/traefik))
 
 ## Docker
 
@@ -59,30 +59,28 @@ Image: crazymax/firefox-syncserver:latest
 
 ### Volumes
 
-* `/data` : Contains SQLite database if `FF_SYNCSERVER_SQLURI` is untouched
+* `/data`: Contains SQLite database if `FF_SYNCSERVER_SQLURI` is untouched
 
 > :warning: Note that the volume should be owned by uid `1000` and gid `1000`. If you don't give the volume correct permissions, the container may not start.
 
 ### Ports
 
-* `5000` : Gunicorn port
+* `5000`: Gunicorn port
 
 ## Use this image
 
 ### Docker Compose
 
-Docker compose is the recommended way to run this image. You can use the following [docker compose template](examples/compose/docker-compose.yml), then run the container :
+Docker compose is the recommended way to run this image. You can use the following [docker compose template](examples/compose/docker-compose.yml), then run the container:
 
 ```bash
-touch acme.json
-chmod 600 acme.json
 docker-compose up -d
 docker-compose logs -f
 ```
 
 ### Command line
 
-You can also use the following minimal command :
+You can also use the following minimal command:
 
 ```bash
 $ docker run -d -p 5000:5000 --name firefox_syncserver \
@@ -100,7 +98,7 @@ Set `FF_SYNCSERVER_SQLURI=pymysql://user:password@mysql_server_ip/db_name`
 
 ## Update
 
-Recreate the container whenever I push an update :
+Recreate the container whenever I push an update:
 
 ```bash
 docker-compose pull
