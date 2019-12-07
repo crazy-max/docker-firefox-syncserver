@@ -1,5 +1,7 @@
 #!/bin/bash
 
+TZ=${TZ:-UTC}
+
 FF_SYNCSERVER_ACCESSLOG=${FF_SYNCSERVER_ACCESSLOG:-false}
 FF_SYNCSERVER_LOGLEVEL=${FF_SYNCSERVER_LOGLEVEL:-info}
 FF_SYNCSERVER_PUBLIC_URL=${FF_SYNCSERVER_PUBLIC_URL:-http://localhost:5000/}
@@ -39,6 +41,11 @@ if [ -n "${PUID}" ] && [ "${PUID}" != "$(id -u syncserver)" ]; then
   echo "Switching to PUID ${PUID}..."
   sed -i -e "s/^syncserver:\([^:]*\):[0-9]*:\([0-9]*\)/syncserver:\1:${PUID}:\2/" /etc/passwd
 fi
+
+# Timezone
+echo "Setting timezone to ${TZ}..."
+ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime
+echo ${TZ} > /etc/timezone
 
 # Check secret
 echo "Checking prerequisites..."

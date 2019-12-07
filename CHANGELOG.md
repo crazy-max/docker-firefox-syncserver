@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0-RC12 (2019/12/07)
+
+* Fix timezone
+
 ## 1.8.0-RC11 (2019/11/17)
 
 * Allow to set custom `PUID`/`PGID`
