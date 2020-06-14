@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:experimental
 FROM --platform=${TARGETPLATFORM:-linux/amd64} python:2.7-alpine3.10
 
 ARG BUILD_DATE

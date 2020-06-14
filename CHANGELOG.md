@@ -33,7 +33,7 @@
 
 * Option to enable access log (`FF_SYNCSERVER_ACCESSLOG`)
 * Option to tune log level (`FF_SYNCSERVER_LOGLEVEL`)
-* Issue with healthcheck, remove for now (Issue #10)
+* Issue with healthcheck, remove for now (#10)
 
 ## 1.8.0-RC8 (2019/08/04)
 
@@ -54,11 +54,11 @@
 
 ## 1.8.0-RC4 (2019/02/04)
 
-* Fix build issue (see pypa/pip#6158)
+* Fix build (pypa/pip#6158)
 
 ## 1.8.0-RC3 (2019/01/22)
 
-* Add `FF_SYNCSERVER_SQLURI` env var (Issue #5)
+* Add `FF_SYNCSERVER_SQLURI` env var (#5)
 * No need to put `syncserver.ini` in data folder
 
 ## 1.8.0-RC2 (2018/07/27)

@@ -13,7 +13,7 @@
 ## About
 
 🐳 [Firefox Sync Server](http://moz-services-docs.readthedocs.io/en/latest/howtos/run-sync-1.5.html) Docker image based on Python Alpine Linux.<br />
-If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 🐳 Docker images!
+If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other Docker images!
 
 💡 Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun) project!
 
@@ -57,6 +57,8 @@ Image: crazymax/firefox-syncserver:latest
 * `FF_SYNCSERVER_SQLURI`: Defines the database in which to store all server data (default `sqlite:///data/syncserver.db`).
 * `FF_SYNCSERVER_FORWARDED_ALLOW_IPS`: Set this to `*` or an IP range if you use an Nginx reverse proxy (optional). 
 
+> 💡 `FF_SYNCSERVER_SECRET_FILE` can be used to fill in the value from a file, especially for Docker's secrets feature.
+
 ### Volumes
 
 * `/data`: Contains SQLite database if `FF_SYNCSERVER_SQLURI` is untouched
@@ -96,7 +98,7 @@ $ docker run -d -p 5000:5000 --name firefox_syncserver \
 
 Set `FF_SYNCSERVER_SQLURI=pymysql://user:password@mysql_server_ip/db_name`
 
-## Update
+## Upgrade
 
 Recreate the container whenever I push an update:
 
