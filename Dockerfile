@@ -51,6 +51,7 @@ RUN \
     shadow \
     su-exec \
     tzdata \
+    ${EXTRA_RUNTIME_DEPS} \
   && apk --update --no-cache add -t build-dependencies \
     build-base \
     git \
