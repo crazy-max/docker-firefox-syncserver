@@ -45,12 +45,12 @@ RUN apk --update --no-cache add \
   && cd app \
   && git reset --hard $SHA1_COMMIT \
   &&  \
-  if [ "$FF_SYNCSERVER_SQL_DRIVER" = "mysql" ] ; then \
+  if [ "$FF_SYNCSERVER_SQL_DRIVER" = "mysql" ]; then \
     pip install pymysql ; \
-  elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "postgresql" ] ; then \
+  elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "postgresql" ]; then \
     pip install psycopg2 ; \
-  elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "sqlite" ] ; then \
-    pip install pysqlite2 ; \
+  elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "sqlite" ]; then \
+    pip install pysqlite ; \
   fi \
   && pip install --upgrade --no-cache-dir -r requirements.txt \
   && pip install --upgrade --no-cache-dir -r dev-requirements.txt \
