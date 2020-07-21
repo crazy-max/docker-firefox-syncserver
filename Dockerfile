@@ -46,7 +46,7 @@ RUN \
     bash \
     curl \
     libffi \
-    libressl \
+    openssl \
     libstdc++ \
     shadow \
     su-exec \
@@ -55,7 +55,7 @@ RUN \
     build-base \
     git \
     libffi-dev \
-    libressl-dev \
+    openssl-dev \
     ${EXTRA_BUILD_DEPS} \
   && git clone https://github.com/mozilla-services/syncserver app \
   && cd app \
