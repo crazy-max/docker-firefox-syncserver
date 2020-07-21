@@ -34,7 +34,7 @@ RUN \
     EXTRA_PIP_PACKAGES="${EXTRA_PIP_PACKAGES} pymysql"; \
     EXTRA_BUILD_DEPS="${EXTRA_BUILD_DEPS} mariadb-dev"; \
   elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "postgresql" ]; then \
-    EXTRA_PIP_PACKAGES="${EXTRA_PIP_PACKAGES} pymysql"; \
+    EXTRA_PIP_PACKAGES="${EXTRA_PIP_PACKAGES} psycopg2"; \
     EXTRA_BUILD_DEPS="${EXTRA_BUILD_DEPS} postgresql-dev"; \
   elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "sqlite" ]; then \
     EXTRA_PIP_PACKAGES="${EXTRA_PIP_PACKAGES} pysqlite"; \
@@ -54,7 +54,6 @@ RUN \
     git \
     libffi-dev \
     libressl-dev \
-    sqlite-dev \
     ${EXTRA_BUILD_DEPS} \
   && git clone https://github.com/mozilla-services/syncserver app \
   && cd app \
