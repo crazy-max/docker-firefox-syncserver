@@ -30,12 +30,14 @@ ENV SYNCSERVER_VERSION="1.8.0" \
 RUN \
   EXTRA_PIP_PACKAGES="" \
   && EXTRA_BUILD_DEPS="" \
+  && EXTRA_RUNTIME_DEPS=="" \
   && if [ "$FF_SYNCSERVER_SQL_DRIVER" = "mysql" ]; then \
     EXTRA_PIP_PACKAGES="${EXTRA_PIP_PACKAGES} pymysql"; \
     EXTRA_BUILD_DEPS="${EXTRA_BUILD_DEPS} mariadb-dev"; \
   elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "postgresql" ]; then \
     EXTRA_PIP_PACKAGES="${EXTRA_PIP_PACKAGES} psycopg2"; \
     EXTRA_BUILD_DEPS="${EXTRA_BUILD_DEPS} postgresql-dev"; \
+    EXTRA_RUNTIME_DEPS="${EXTRA_RUNTIME_DEPS} libpq"; \
   elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "sqlite" ]; then \
     EXTRA_PIP_PACKAGES="${EXTRA_PIP_PACKAGES} pysqlite"; \
     EXTRA_BUILD_DEPS="${EXTRA_BUILD_DEPS} sqlite-dev"; \
