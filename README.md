@@ -25,6 +25,27 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ## Docker
 
+### Tags
+
+This image offers support for multiple SQL drivers in the form of tag suffixes.
+You can append these to any version tag or `latest` in order to use the variant
+with your preferred SQL driver installed. For example, to use PostgreSQL, you'd likely
+want `crazymax/firefox-syncserver:latest-postgresql`, or `crazymax/firefox-syncserver:postgresql`.
+
+#### Notable tags
+
+* `latest` has MySQL support by default and is the same as `mysql`
+* `edge` has MySQL support by default, potentially untested beta versions
+* `mysql`: the same as `latest`
+* `postgresql`: the same as `latest-postgresql`.
+* `sqlite`: the same as `latest-sqlite`.
+
+#### Tag suffixes
+
+* `-mysql`: Enables MySQL support
+* `-postgresql`: Enables PostgreSQL support
+* `-sqlite`: Enables SQLite support
+
 ### Multi-platform image
 
 Following platforms for this image are available:
