@@ -41,6 +41,7 @@ RUN apk --update --no-cache add \
     git \
     libffi-dev \
     libressl-dev \
+    sqlite-dev \
   && git clone https://github.com/mozilla-services/syncserver app \
   && cd app \
   && git reset --hard $SHA1_COMMIT \
