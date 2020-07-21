@@ -22,7 +22,7 @@ LABEL maintainer="CrazyMax" \
   org.opencontainers.image.licenses="MIT"
 
 ENV SYNCSERVER_VERSION="1.8.0" \
-  SHA1_COMMIT="5932c464d70ec9cf0344b1d3e970b3711de6a98e" \
+  SHA1_COMMIT="e1aab54cbcb6e570979835789f7b4624eebdc875" \
   TZ="UTC" \
   PUID="1000" \
   PGID="1000"
