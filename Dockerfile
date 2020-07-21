@@ -30,7 +30,7 @@ ENV SYNCSERVER_VERSION="1.8.0" \
 RUN \
   EXTRA_PIP_PACKAGES="" \
   && EXTRA_BUILD_DEPS="" \
-  && EXTRA_RUNTIME_DEPS=="" \
+  && EXTRA_RUNTIME_DEPS="" \
   && if [ "$FF_SYNCSERVER_SQL_DRIVER" = "mysql" ]; then \
     EXTRA_PIP_PACKAGES="${EXTRA_PIP_PACKAGES} pymysql"; \
     EXTRA_BUILD_DEPS="${EXTRA_BUILD_DEPS} mariadb-dev"; \
