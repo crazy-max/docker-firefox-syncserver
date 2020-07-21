@@ -4,6 +4,8 @@ ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 
+ARG FF_SYNCSERVER_SQL_DRIVER=sqlite
+
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN printf "I am running on ${BUILDPLATFORM:-linux/amd64}, building for ${TARGETPLATFORM:-linux/amd64}\n$(uname -a)\n"
@@ -42,7 +44,14 @@ RUN apk --update --no-cache add \
   && git clone https://github.com/mozilla-services/syncserver app \
   && cd app \
   && git reset --hard $SHA1_COMMIT \
-  && pip install pymysql \
+  &&  \
+  if [ "$FF_SYNCSERVER_SQL_DRIVER" = "mysql" ] ; then \
+    pip install pymysql ; \
+  elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "postgresql" ] ; then \
+    pip install psycopg2 ; \
+  elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "sqlite" ] ; then \
+    pip install pysqlite2 ; \
+  fi \
   && pip install --upgrade --no-cache-dir -r requirements.txt \
   && pip install --upgrade --no-cache-dir -r dev-requirements.txt \
   && apk del build-dependencies \

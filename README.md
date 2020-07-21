@@ -43,6 +43,10 @@ Image: crazymax/firefox-syncserver:latest
    - linux/s390x
 ```
 
+### Notable Build Arguments
+
+* `FF_SYNCSERVER_SQL_DRIVER`: Either `mysql`, `postgresql`, or `sqlite` (default).
+
 ### Environment variables
 
 * `TZ`: The timezone assigned to the container (default `UTC`)
@@ -55,7 +59,7 @@ Image: crazymax/firefox-syncserver:latest
 * `FF_SYNCSERVER_ALLOW_NEW_USERS`: Set this to `false` to disable new-user signups on the server. Only request by existing accounts will be honoured (default `true`).
 * `FF_SYNCSERVER_FORCE_WSGI_ENVIRON`: Set this to `true` to work around a mismatch between public_url and the application URL as seen by python, which can happen in certain reverse-proxy hosting setups (default `false`).
 * `FF_SYNCSERVER_SQLURI`: Defines the database in which to store all server data (default `sqlite:///data/syncserver.db`).
-* `FF_SYNCSERVER_FORWARDED_ALLOW_IPS`: Set this to `*` or an IP range if you use an Nginx reverse proxy (optional). 
+* `FF_SYNCSERVER_FORWARDED_ALLOW_IPS`: Set this to `*` or an IP range if you use an Nginx reverse proxy (optional).
 
 > 💡 `FF_SYNCSERVER_SECRET_FILE` can be used to fill in the value from a file, especially for Docker's secrets feature.
 
@@ -107,7 +111,7 @@ docker-compose pull
 docker-compose up -d
 ```
 
-## How can I help ?
+## How can I help
 
 All kinds of contributions are welcome :raised_hands:! The most basic way to show your support is to star :star2: the project, or to raise issues :speech_balloon: You can also support this project by [**becoming a sponsor on GitHub**](https://github.com/sponsors/crazy-max) :clap: or by making a [Paypal donation](https://www.paypal.me/crazyws) to ensure this journey continues indefinitely! :rocket:
 
