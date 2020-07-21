@@ -27,7 +27,20 @@ ENV SYNCSERVER_VERSION="1.8.0" \
   PUID="1000" \
   PGID="1000"
 
-RUN apk --update --no-cache add \
+RUN \
+  EXTRA_PIP_PACKAGES="" \
+  && EXTRA_BUILD_DEPS="" \
+  && if [ "$FF_SYNCSERVER_SQL_DRIVER" = "mysql" ]; then \
+    EXTRA_PIP_PACKAGES="${EXTRA_PIP_PACKAGES} pymysql"; \
+    EXTRA_BUILD_DEPS="${EXTRA_BUILD_DEPS} mariadb-dev"; \
+  elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "postgresql" ]; then \
+    EXTRA_PIP_PACKAGES="${EXTRA_PIP_PACKAGES} pymysql"; \
+    EXTRA_BUILD_DEPS="${EXTRA_BUILD_DEPS} postgresql-dev"; \
+  elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "sqlite" ]; then \
+    EXTRA_PIP_PACKAGES="${EXTRA_PIP_PACKAGES} pysqlite"; \
+    EXTRA_BUILD_DEPS="${EXTRA_BUILD_DEPS} sqlite-dev"; \
+  fi \
+  && apk --update --no-cache add \
     bash \
     curl \
     libffi \
@@ -42,16 +55,13 @@ RUN apk --update --no-cache add \
     libffi-dev \
     libressl-dev \
     sqlite-dev \
+    ${EXTRA_BUILD_DEPS} \
   && git clone https://github.com/mozilla-services/syncserver app \
   && cd app \
   && git reset --hard $SHA1_COMMIT \
   &&  \
-  if [ "$FF_SYNCSERVER_SQL_DRIVER" = "mysql" ]; then \
-    pip install pymysql ; \
-  elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "postgresql" ]; then \
-    pip install psycopg2 ; \
-  elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "sqlite" ]; then \
-    pip install pysqlite ; \
+  if [ "$EXTRA_PIP_PACKAGES" != "" ]; then \
+    pip install $EXTRA_PIP_PACKAGES; \
   fi \
   && pip install --upgrade --no-cache-dir -r requirements.txt \
   && pip install --upgrade --no-cache-dir -r dev-requirements.txt \
