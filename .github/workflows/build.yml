@@ -17,14 +17,32 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        sql-driver: ['mysql','sqlite','postgresql']
     steps:
       -
         name: Prepare
         id: prepare
         run: |
+          tags_for_attribute ()
+          {
+            local ATTRIBUTE=$1
+            local VERSION=$2
+            local TAGS="--tag ${DOCKER_IMAGE}:${VERSION}-${ATTRIBUTE}"
+
+            if [ "$VERSION" != "edge" ]; then
+              TAGS="$TAGS --tag ${DOCKER_IMAGE}:latest-${ATTRIBUTE}"
+              TAGS="$TAGS --tag ${DOCKER_IMAGE}:${ATTRIBUTE}"
+            fi
+
+            echo ${TAGS}
+          }
+
           DOCKER_USERNAME=crazymax
           DOCKER_IMAGE=crazymax/firefox-syncserver
           DOCKER_PLATFORMS=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/386,linux/ppc64le,linux/s390x
+          FF_SYNCSERVER_SQL_DRIVER=${{ matrix.sql-driver }}
           VERSION=edge
 
           if [[ $GITHUB_REF == refs/tags/* ]]; then
@@ -37,6 +55,8 @@ jobs:
             TAGS="$TAGS --tag ${DOCKER_IMAGE}:latest"
           fi
 
+          TAGS="$TAGS $(tags_for_attribute ${FF_SYNCSERVER_SQL_DRIVER} ${VERSION})"
+
           echo ::set-output name=docker_username::${DOCKER_USERNAME}
           echo ::set-output name=docker_image::${DOCKER_IMAGE}
           echo ::set-output name=version::${VERSION}
@@ -44,6 +64,7 @@ jobs:
             --build-arg VERSION=${VERSION} \
             --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
             --build-arg VCS_REF=${GITHUB_SHA::8} \
+            --build-arg FF_SYNCSERVER_SQL_DRIVER=${FF_SYNCSERVER_SQL_DRIVER} \
             ${TAGS} --file Dockerfile .
       -
         name: Set up Docker Buildx

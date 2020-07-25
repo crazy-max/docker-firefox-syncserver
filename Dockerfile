@@ -4,6 +4,8 @@ ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 
+ARG FF_SYNCSERVER_SQL_DRIVER=mysql
+
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN printf "I am running on ${BUILDPLATFORM:-linux/amd64}, building for ${TARGETPLATFORM:-linux/amd64}\n$(uname -a)\n"
@@ -20,29 +22,49 @@ LABEL maintainer="CrazyMax" \
   org.opencontainers.image.licenses="MIT"
 
 ENV SYNCSERVER_VERSION="1.8.0" \
-  SHA1_COMMIT="5932c464d70ec9cf0344b1d3e970b3711de6a98e" \
+  SHA1_COMMIT="e1aab54cbcb6e570979835789f7b4624eebdc875" \
   TZ="UTC" \
   PUID="1000" \
   PGID="1000"
 
-RUN apk --update --no-cache add \
+RUN \
+  EXTRA_PIP_PACKAGES="" \
+  && EXTRA_BUILD_DEPS="" \
+  && EXTRA_RUNTIME_DEPS="" \
+  && if [ "$FF_SYNCSERVER_SQL_DRIVER" = "mysql" ]; then \
+    EXTRA_PIP_PACKAGES="${EXTRA_PIP_PACKAGES} pymysql"; \
+    EXTRA_BUILD_DEPS="${EXTRA_BUILD_DEPS} mariadb-dev"; \
+  elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "postgresql" ]; then \
+    EXTRA_PIP_PACKAGES="${EXTRA_PIP_PACKAGES} psycopg2"; \
+    EXTRA_BUILD_DEPS="${EXTRA_BUILD_DEPS} postgresql-dev"; \
+    EXTRA_RUNTIME_DEPS="${EXTRA_RUNTIME_DEPS} libpq"; \
+  elif [ "$FF_SYNCSERVER_SQL_DRIVER" = "sqlite" ]; then \
+    EXTRA_PIP_PACKAGES="${EXTRA_PIP_PACKAGES} pysqlite"; \
+    EXTRA_BUILD_DEPS="${EXTRA_BUILD_DEPS} sqlite-dev"; \
+  fi \
+  && apk --update --no-cache add \
     bash \
     curl \
     libffi \
-    libressl \
+    openssl \
     libstdc++ \
     shadow \
     su-exec \
     tzdata \
+    ${EXTRA_RUNTIME_DEPS} \
   && apk --update --no-cache add -t build-dependencies \
     build-base \
     git \
     libffi-dev \
-    libressl-dev \
+    openssl-dev \
+    ${EXTRA_BUILD_DEPS} \
   && git clone https://github.com/mozilla-services/syncserver app \
   && cd app \
   && git reset --hard $SHA1_COMMIT \
-  && pip install pymysql \
+  &&  \
+  if [ "$EXTRA_PIP_PACKAGES" != "" ]; then \
+    pip install $EXTRA_PIP_PACKAGES; \
+  fi \
   && pip install --upgrade --no-cache-dir -r requirements.txt \
   && pip install --upgrade --no-cache-dir -r dev-requirements.txt \
   && apk del build-dependencies \
