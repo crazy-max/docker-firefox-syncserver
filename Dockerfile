@@ -1,23 +1,10 @@
 FROM --platform=${TARGETPLATFORM:-linux/amd64} python:2.7-alpine3.10
 
-ARG BUILD_DATE
-ARG VCS_REF
-ARG VERSION
-
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN printf "I am running on ${BUILDPLATFORM:-linux/amd64}, building for ${TARGETPLATFORM:-linux/amd64}\n$(uname -a)\n"
 
-LABEL maintainer="CrazyMax" \
-  org.opencontainers.image.created=$BUILD_DATE \
-  org.opencontainers.image.url="https://github.com/crazy-max/docker-firefox-syncserver" \
-  org.opencontainers.image.source="https://github.com/crazy-max/docker-firefox-syncserver" \
-  org.opencontainers.image.version=$VERSION \
-  org.opencontainers.image.revision=$VCS_REF \
-  org.opencontainers.image.vendor="CrazyMax" \
-  org.opencontainers.image.title="Firefox Sync Server" \
-  org.opencontainers.image.description="Firefox Sync Server" \
-  org.opencontainers.image.licenses="MIT"
+LABEL maintainer="CrazyMax"
 
 ENV SYNCSERVER_VERSION="1.8.0" \
   SHA1_COMMIT="5932c464d70ec9cf0344b1d3e970b3711de6a98e" \

@@ -16,6 +16,23 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 💡 Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun) project!
 
+___
+
+* [Features](#features)
+* [Docker](#docker)
+  * [Image](#image)
+  * [Environment variables](#environment-variables)
+  * [Volumes](#volumes)
+  * [Ports](#ports)
+* [Usage](#usage)
+  * [Docker Compose](#docker-compose)
+  * [Command line](#command-line)
+* [Upgrade](#upgrade)
+* [Notes](#notes)
+  * [Use with MySQL database](#use-with-mysql-database)
+* [How can I help?](#how-can-i-help)
+* [License](#license)
+
 ## Features
 
 * Run as non-root user
@@ -24,7 +41,12 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ## Docker
 
-### Multi-platform image
+### Image
+
+| Registry                                                                                         | Image                           |
+|--------------------------------------------------------------------------------------------------|---------------------------------|
+| [Docker Hub](https://hub.docker.com/r/crazymax/firefox-syncserver/)                                            | `crazymax/firefox-syncserver`                 |
+| [GitHub Container Registry](https://github.com/users/crazy-max/packages/container/package/firefox-syncserver)  | `ghcr.io/crazy-max/firefox-syncserver`        |
 
 Following platforms for this image are available:
 
@@ -68,7 +90,7 @@ Image: crazymax/firefox-syncserver:latest
 
 * `5000`: Gunicorn port
 
-## Use this image
+## Usage
 
 ### Docker Compose
 
@@ -106,9 +128,12 @@ docker-compose pull
 docker-compose up -d
 ```
 
-## How can I help ?
+## How can I help?
 
-All kinds of contributions are welcome :raised_hands:! The most basic way to show your support is to star :star2: the project, or to raise issues :speech_balloon: You can also support this project by [**becoming a sponsor on GitHub**](https://github.com/sponsors/crazy-max) :clap: or by making a [Paypal donation](https://www.paypal.me/crazyws) to ensure this journey continues indefinitely! :rocket:
+All kinds of contributions are welcome :raised_hands:! The most basic way to show your support is to star :star2:
+the project, or to raise issues :speech_balloon: You can also support this project
+by [**becoming a sponsor on GitHub**](https://github.com/sponsors/crazy-max) :clap: or by
+making a [Paypal donation](https://www.paypal.me/crazyws) to ensure this journey continues indefinitely! :rocket:
 
 Thanks again for your support, it is much appreciated! :pray:
 
