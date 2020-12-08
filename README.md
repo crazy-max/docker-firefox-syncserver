@@ -119,6 +119,10 @@ $ docker run -d -p 5000:5000 --name firefox_syncserver \
 
 Set `FF_SYNCSERVER_SQLURI=pymysql://user:password@mysql_server_ip/db_name`
 
+### Use with PostgreSQL database
+
+Set `FF_SYNCSERVER_SQLURI=postgresql://firefox-syncserver_db_user:PASSWORD@postgres/firefox-syncserver_db`
+
 ## Upgrade
 
 Recreate the container whenever I push an update:
