@@ -18,25 +18,24 @@ RUN apk --update --no-cache add \
     libffi \
     libressl \
     libstdc++ \
+    postgresql-dev \
     shadow \
     su-exec \
-    tzdata \
-    postgresql-dev \
+    tzdata \    
   && apk --update --no-cache add -t build-dependencies \
     build-base \
+    gcc \
     git \
     libffi-dev \
     libressl-dev \
-    gcc \
+    musl-dev \    
     python-dev \
-    musl-dev \
   && git clone https://github.com/mozilla-services/syncserver app \
   && cd app \
   && git reset --hard $SHA1_COMMIT \
-  && pip install pymysql \
   && pip install --upgrade --no-cache-dir -r requirements.txt \
   && pip install --upgrade --no-cache-dir -r dev-requirements.txt \
-  && pip install psycopg2 \
+  && pip install psycopg2 pymysql \
   && apk del build-dependencies \
   && rm -rf /tmp/* /var/cache/apk/* \
   && python ./setup.py develop
