@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0-RC13 (2020/12/12)
+
+* Add postgres support (#42)
+
 ## 1.8.0-RC12 (2019/12/07)
 
 * Fix timezone
