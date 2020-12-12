@@ -1,8 +1,6 @@
 FROM --platform=${TARGETPLATFORM:-linux/amd64} python:2.7-alpine3.10
-
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
-RUN printf "I am running on ${BUILDPLATFORM:-linux/amd64}, building for ${TARGETPLATFORM:-linux/amd64}\n$(uname -a)\n"
 
 LABEL maintainer="CrazyMax"
 
@@ -18,17 +16,20 @@ RUN apk --update --no-cache add \
     libffi \
     libressl \
     libstdc++ \
-    postgresql-dev \
+    mariadb-client \
+    postgresql-client \
     shadow \
     su-exec \
-    tzdata \    
+    tzdata \
   && apk --update --no-cache add -t build-dependencies \
     build-base \
     gcc \
     git \
     libffi-dev \
     libressl-dev \
-    musl-dev \    
+    mariadb-dev \
+    musl-dev \
+    postgresql-dev \
     python-dev \
   && git clone https://github.com/mozilla-services/syncserver app \
   && cd app \

@@ -121,7 +121,7 @@ Set `FF_SYNCSERVER_SQLURI=pymysql://user:password@mysql_server_ip/db_name`
 
 ### Use with PostgreSQL database
 
-Set `FF_SYNCSERVER_SQLURI=postgresql://firefox-syncserver_db_user:PASSWORD@postgres/firefox-syncserver_db`
+Set `FF_SYNCSERVER_SQLURI=postgresql://user:password@postgresql_server_ip/db_name`
 
 ## Upgrade
 
