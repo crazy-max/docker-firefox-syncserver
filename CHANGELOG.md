@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0-r14 (2021/03/02)
+
+* Switch to `gosu`
+
 ## 1.8.0-RC13 (2020/12/12)
 
 * Add postgres support (#42)

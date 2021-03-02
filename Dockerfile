@@ -1,15 +1,12 @@
-FROM --platform=${TARGETPLATFORM:-linux/amd64} python:2.7-alpine3.10
-ARG TARGETPLATFORM
-ARG BUILDPLATFORM
+ARG SYNCSERVER_VERSION=1.8.0
+ARG SHA1_COMMIT=5932c464d70ec9cf0344b1d3e970b3711de6a98e
 
+FROM --platform=${TARGETPLATFORM:-linux/amd64} crazymax/gosu:latest AS gosu
+FROM --platform=${TARGETPLATFORM:-linux/amd64} python:2.7-alpine3.10
 LABEL maintainer="CrazyMax"
 
-ENV SYNCSERVER_VERSION="1.8.0" \
-  SHA1_COMMIT="5932c464d70ec9cf0344b1d3e970b3711de6a98e" \
-  TZ="UTC" \
-  PUID="1000" \
-  PGID="1000"
-
+ARG SYNCSERVER_VERSION
+ARG SHA1_COMMIT
 RUN apk --update --no-cache add \
     bash \
     curl \
@@ -19,7 +16,6 @@ RUN apk --update --no-cache add \
     mariadb-client \
     postgresql-client \
     shadow \
-    su-exec \
     tzdata \
   && apk --update --no-cache add -t build-dependencies \
     build-base \
@@ -41,6 +37,11 @@ RUN apk --update --no-cache add \
   && rm -rf /tmp/* /var/cache/apk/* \
   && python ./setup.py develop
 
+ENV TZ="UTC" \
+  PUID="1000" \
+  PGID="1000"
+
+COPY --from=gosu / /
 COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod a+x /entrypoint.sh \
