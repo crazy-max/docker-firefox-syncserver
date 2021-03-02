@@ -19,11 +19,10 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 ___
 
 * [Features](#features)
-* [Docker](#docker)
-  * [Image](#image)
-  * [Environment variables](#environment-variables)
-  * [Volumes](#volumes)
-  * [Ports](#ports)
+* [Image](#image)
+* [Environment variables](#environment-variables)
+* [Volumes](#volumes)
+* [Ports](#ports)
 * [Usage](#usage)
   * [Docker Compose](#docker-compose)
   * [Command line](#command-line)
@@ -39,9 +38,7 @@ ___
 * Multi-platform image
 * [Traefik](https://github.com/containous/traefik-library-image) as reverse proxy and creation/renewal of Let's Encrypt certificates (see [this template](examples/traefik))
 
-## Docker
-
-### Image
+## Image
 
 | Registry                                                                                         | Image                           |
 |--------------------------------------------------------------------------------------------------|---------------------------------|
@@ -64,7 +61,7 @@ Image: crazymax/firefox-syncserver:latest
    - linux/s390x
 ```
 
-### Environment variables
+## Environment variables
 
 * `TZ`: The timezone assigned to the container (default `UTC`)
 * `PUID`: Process UID (default `1000`)
@@ -80,13 +77,13 @@ Image: crazymax/firefox-syncserver:latest
 
 > 💡 `FF_SYNCSERVER_SECRET_FILE` can be used to fill in the value from a file, especially for Docker's secrets feature.
 
-### Volumes
+## Volumes
 
 * `/data`: Contains SQLite database if `FF_SYNCSERVER_SQLURI` is untouched
 
 > :warning: Note that the volumes should be owned by the user/group with the specified `PUID` and `PGID`. If you don't give the volume correct permissions, the container may not start.
 
-### Ports
+## Ports
 
 * `5000`: Gunicorn port
 
