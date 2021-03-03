@@ -1,8 +1,8 @@
 ARG SYNCSERVER_VERSION=1.8.0
 ARG SHA1_COMMIT=5932c464d70ec9cf0344b1d3e970b3711de6a98e
 
-FROM --platform=${TARGETPLATFORM:-linux/amd64} crazymax/gosu:latest AS gosu
-FROM --platform=${TARGETPLATFORM:-linux/amd64} python:2.7-alpine3.10
+FROM crazymax/gosu:latest AS gosu
+FROM python:2.7-alpine3.10
 LABEL maintainer="CrazyMax"
 
 ARG SYNCSERVER_VERSION
