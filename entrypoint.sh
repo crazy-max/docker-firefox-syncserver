@@ -125,4 +125,4 @@ fi
 echo "Fixing perms..."
 chown -R syncserver:syncserver /data /opt/syncserver
 
-exec gosu syncserver:syncserver "$@"
+exec yasu syncserver:syncserver "$@"

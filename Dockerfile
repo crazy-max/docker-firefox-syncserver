@@ -1,7 +1,7 @@
 ARG SYNCSERVER_VERSION=1.8.0
 ARG SHA1_COMMIT=5932c464d70ec9cf0344b1d3e970b3711de6a98e
 
-FROM crazymax/gosu:latest AS gosu
+FROM crazymax/yasu:latest AS yasu
 FROM python:2.7-alpine3.10
 LABEL maintainer="CrazyMax"
 
@@ -41,7 +41,7 @@ ENV TZ="UTC" \
   PUID="1000" \
   PGID="1000"
 
-COPY --from=gosu / /
+COPY --from=yasu / /
 COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod a+x /entrypoint.sh \

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0-r15 (2021/03/04)
+
+* Renamed `yasu` (more info https://github.com/crazy-max/yasu#yet-another)
+
 ## 1.8.0-r14 (2021/03/02)
 
 * Switch to `gosu`
