@@ -26,9 +26,10 @@ ___
 * [Usage](#usage)
   * [Docker Compose](#docker-compose)
   * [Command line](#command-line)
-* [Upgrade](#upgrade)
 * [Notes](#notes)
   * [Use with MySQL database](#use-with-mysql-database)
+  * [Use with PostgreSQL database](#use-with-postgresql-database)
+* [Upgrade](#upgrade)
 * [How can I help?](#how-can-i-help)
 * [License](#license)
 
